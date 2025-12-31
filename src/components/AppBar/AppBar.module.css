@@ -1,0 +1,86 @@
+.containerHeader {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  line-height: var(--lh-primary);
+  font-size: var(--fs-big);
+  color: var(--color-font-primary);
+
+  @media (min-width: 768px) {
+    line-height: 32px;
+    font-size: 22px;
+  }
+}
+
+.userNav {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  gap: 28px;
+  font-size: var(--fs-small);
+  font-weight: var(--fw-medium);
+}
+
+.userNavHeader {
+  display: none;
+
+  @media (min-width: 1440px) {
+    display: flex;
+  }
+}
+
+.userMenu {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.burgerMenu {
+  display: none;
+}
+
+.burgerMenu.open {
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 166px;
+  background-color: var(--color-primary);
+  padding: 16px;
+  width: 185px;
+  height: 100dvh;
+  background-image: image-set(
+    url("../image/illustration.webp") 1x,
+    url("../image/illustration@2x.webp") 2x
+  );
+  background-position: bottom;
+  background-repeat: no-repeat;
+
+  @media (min-width: 768px) {
+    width: 300px;
+    padding: 20px 32px;
+    gap: 170px;
+    background-image: image-set(
+      url("../image/illustrationTablet.webp") 1x,
+      url("../image/illustrationTablet@2x.webp") 2x
+    );
+  }
+}
+
+.userMenu.open {
+  justify-content: space-between;
+  color: var(--color-font-secondary);
+}
+
+.userNav.open {
+  color: var(--color-font-secondary);
+}

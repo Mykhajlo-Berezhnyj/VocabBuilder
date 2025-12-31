@@ -1,0 +1,23 @@
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  line-height: var(--lh-primary);
+  font-size: var(--fs-big);
+  color: var(--color-font-primary);
+  margin: 16px auto 0 16px;
+
+  @media (min-width: 768px) {
+    line-height: 32px;
+    font-size: 22px;
+    margin: 24px auto 0 32px;
+  }
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}

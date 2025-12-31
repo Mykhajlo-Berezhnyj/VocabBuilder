@@ -1,0 +1,32 @@
+.userName-header {
+}
+
+.avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+
+.avatar-header {
+  background-color: var(--color-primary);
+}
+
+.avatar-menu {
+  background-color: var(--color-font-secondary);
+}
+
+.icon {
+  width: 13.33px;
+  height: 13.33px;
+}
+
+.icon-header {
+  color: var(--color-font-secondary);
+}
+
+.icon-menu {
+  color: var(--color-primary);
+}

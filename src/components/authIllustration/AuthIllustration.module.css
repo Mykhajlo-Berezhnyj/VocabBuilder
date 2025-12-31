@@ -1,0 +1,26 @@
+.authCaption {
+  display: block;
+  width: 283px;
+  height: 19px;
+  font-size: var(--fs-small);
+  font-weight: var(--fw-regular);
+  text-align: justify;
+  text-align-last: justify;
+
+  @media (min-width: 768px) {
+    font-size: var(--fs-base);
+    line-height: 24px;
+    width: 323px;
+    height: 24px;
+  }
+}
+
+.img {
+  width: 247px;
+  height: 191px;
+
+  @media (min-width: 768px) {
+    width: 498px;
+    height: 435px;
+  }
+}

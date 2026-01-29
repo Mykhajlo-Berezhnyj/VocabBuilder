@@ -1,3 +1,4 @@
+import type { RejectError } from "../../components/utils/getErrorMessage";
 import type { Category } from "../filters/types";
 
 export interface UserWord {
@@ -8,7 +9,7 @@ export interface UserWord {
 }
 
 export interface UserWordResponse {
-  _id?: string;
+  _id: string;
   en: string;
   ua: string;
   category: Category;
@@ -19,12 +20,13 @@ export interface UserWordResponse {
 
 export interface UserDictionaryState {
   words: UserWordResponse[];
+  // editingWord: UserWordResponse | null;
   totalPages: number;
   page: number;
   perPage: number;
   totalCount: number;
   isLoading: boolean;
-  error: string | null;
+  error: RejectError | null;
 }
 
 export interface ApiUserDictionaryResponse {
@@ -32,31 +34,6 @@ export interface ApiUserDictionaryResponse {
   totalPages: number;
   page: number;
   perPage: number;
-}
-
-export interface userTask {
-  _id: string;
-  ua: string;
-  task: string;
-}
-
-export interface ApiUserTaskResponse {
-  words: userTask[];
-}
-
-export interface userAnswer {
-  _id: string;
-  en: string;
-  ua: string;
-  task: string;
-}
-
-export interface userAnswerResponse {
-  _id: string;
-  ua: string;
-  task: string;
-  en: string;
-  isDone: boolean;
 }
 
 export interface EditWordArgs {

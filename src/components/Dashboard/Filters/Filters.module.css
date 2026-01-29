@@ -1,0 +1,59 @@
+.inputWrap {
+  display: flex;
+  position: relative;
+
+  @media (min-width: 768px) {
+    width: 274px;
+  }
+}
+
+.input {
+  width: 100%;
+  height: 48px;
+  border-radius: var(--border-radius);
+  border: 1px solid rgba(var(--rgb-color-font-primary), 0.1);
+  padding: 12px 24px;
+  font-size: var(--fs-base);
+  line-height: 24px;
+  font-weight: var(--fw-medium);
+}
+
+.input::placeholder {
+  font-family: "Fixel Display";
+  color: var(--color-font-primary);
+}
+
+.iconSearch {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 12px;
+  right: 24px;
+}
+
+.selectWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 74px;
+  width: 100%;
+
+  @media (min-width: 768px) {
+    width: 351px;
+    height: 48px;
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.radioGroup {
+  display: flex;
+  font-size: 12px;
+  font-weight: var(--fw-regular);
+  line-height: 1;
+  gap: 16px;
+
+  @media (min-width: 768px) {
+    font-size: var(--fs-small);
+  }
+}

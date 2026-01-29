@@ -2,16 +2,16 @@
   margin: 0 auto;
   padding: 0 16px;
   width: 100%;
-  /* max-width: clamp(320px, 90vw, 768px); */
+  /* max-width: clamp(320px, 90vw, 375px); */
 
   @media (min-width: 768px) {
-    width: 100%;
+    max-width: 768px;
     /* max-width: clamp(768px, 90vw, 1440px); */
     padding: 0 32px;
   }
 
   @media (min-width: 1440px) {
-    width: 1440px;
+    max-width: 1440px;
     padding: 0 100px;
   }
 }

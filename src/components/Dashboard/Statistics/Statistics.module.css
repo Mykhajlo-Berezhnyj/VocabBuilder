@@ -1,0 +1,23 @@
+.txtStatistic {
+  margin: 0;
+  font-size: var(--fs-small);
+  line-height: 1;
+  vertical-align: middle;
+  color: rgba(var(--rgb-color-font-primary), 0.5);
+
+  @media(min-width: 768px) {
+    font-size: var(--fs-normal);
+    line-height: 24px;
+    width: 70px;
+  }
+}
+
+.dataStatistic {
+  font-size: 20px;
+  line-height: 1;
+  vertical-align: middle;
+
+    @media(min-width: 768px) {
+    line-height: 30px;
+  }
+}

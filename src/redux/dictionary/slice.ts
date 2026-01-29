@@ -23,7 +23,11 @@ const initialState: DictionaryState = {
 const dictionarySlice = createSlice({
   name: "dictionary",
   initialState: initialState,
-  reducers: {},
+  reducers: {
+    changePage(state, action) {
+      state.page = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchWords.pending, handlePending)
@@ -41,5 +45,7 @@ const dictionarySlice = createSlice({
       });
   },
 });
+
+export const { changePage } = dictionarySlice.actions;
 
 export default dictionarySlice.reducer;

@@ -1,0 +1,91 @@
+main {
+  background-color: var(--background-secondary);
+}
+
+.sectionDashboard {
+  display: flex;
+  flex-direction: column;
+  padding-top: 32px;
+  padding-bottom: 16px;
+}
+
+.sectionTable {
+  padding: 16px 0;
+}
+
+.en {
+  /* padding: 16px 4px 16px 4px; */
+  width: 100%;
+  text-wrap: wrap;
+
+  @media (min-width: 375px) {
+    padding: 16px 10px 16px 14px;
+    width: 82px;
+  }
+
+  @media (min-width: 768px) {
+    padding: 22px 12px 22px 22px;
+    width: 180px;
+  }
+}
+
+.ua {
+  /* /padding: 16px 8px 16px 6px; */
+  width: 100%;
+   text-wrap: wrap;
+
+   @media (min-width: 375px) {
+    padding: 16px 16px 16px 14px;
+    width: 116px;
+  }
+
+    @media (min-width: 768px) {
+    padding: 22px 12px 22px 22px;
+    width: 180px;
+  }
+}
+
+.progress {
+  /* padding: 8px 6px; */
+  width: 100%;
+
+     @media (min-width: 375px) {
+    padding: 16px 14px;
+    width: 95px;
+  }
+}
+
+.category {
+  padding: 16px 12px 16px 16px;
+}
+
+.actions {
+  /* padding: 6px 3px; */
+  width: 45px;
+
+
+      @media (min-width: 375px) {
+    padding: 14px 9px;
+    width: 50px;
+  }
+}
+
+.progressWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 3px;
+
+  @media (min-width: 768px) {
+    padding: 0;
+    justify-content: space-between;
+  }
+}
+
+.circularProgress {
+  --circularSize: 24px;
+
+  @media (min-width: 768px) {
+    --circularSize: 26px;
+  }
+}

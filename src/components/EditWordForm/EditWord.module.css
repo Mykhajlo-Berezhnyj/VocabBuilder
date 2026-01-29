@@ -1,0 +1,63 @@
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.fieldWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.wordWrap {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.iconFlag {
+  width: 28px;
+  height: 28px;
+}
+
+.inputWrap {
+  height: 48px;
+  width: 100%;
+  position: relative;
+}
+
+.inputWrap input {
+  padding: 12px 24px;
+  border-radius: var(--border-radius);
+  border: 1px solid #d1d5db;
+  background-color: transparent;
+}
+
+.btnWrap {
+  display: flex;
+  gap: 8px;
+}
+
+.btnSave {
+  width: 158px;
+  height: 48px;
+  border-radius: 30px;
+  background-color: var(--color-font-secondary);
+  line-height: 1.5;
+  font-weight: var(--fw-bold);
+}
+
+.btnCancel {
+  width: 145px;
+  height: 48px;
+  border-radius: 30px;
+  background-color: transparent;
+  border: 1px solid rgba(var(--rgb-color-font-secondery), 0.4);
+}
+
+.formHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}

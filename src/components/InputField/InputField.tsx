@@ -1,11 +1,18 @@
-import type { UseFormRegister, Path, FieldValues } from "react-hook-form";
+import type {
+  UseFormRegister,
+  Path,
+  FieldValues,
+  RegisterOptions,
+} from "react-hook-form";
 import css from "../InputFieldPassword/InputFieldPassword.module.css";
 import clsx from "clsx";
 
 interface InputFieldProps<T extends FieldValues> {
   name: Path<T>;
   register: UseFormRegister<T>;
+  as?: "input" | "textarea";
   type?: "text" | "email" | "password";
+  rules?: RegisterOptions<T>;
   error?: string | React.ReactNode;
   isValid?: boolean;
   placeholder?: string;
@@ -16,27 +23,32 @@ interface InputFieldProps<T extends FieldValues> {
 export default function InputField<T extends FieldValues>({
   name,
   register,
+  as = "input",
   error,
   isValid,
+  rules,
   type = "text",
   placeholder,
   autoComplete,
   className,
   ...props
 }: InputFieldProps<T>) {
+  const Component = as;
+
   return (
     <div className={className}>
-      <input
+      <Component
         type={type}
         aria-label={placeholder ?? name}
         {...props}
-        {...register(name)}
+        {...register(name as Path<T>, rules)}
         placeholder={placeholder}
         autoComplete={autoComplete}
         className={clsx(
           css.input,
           error && css.inputError,
-          !error && isValid && css.inputValid
+          !error && isValid && css.inputValid,
+          as === "textarea" && css.area,
         )}
         aria-invalid={!!error}
       />

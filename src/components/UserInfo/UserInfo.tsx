@@ -15,13 +15,15 @@ export default function UserInfo({
 }: UserInfoProps) {
   const user = useSelector(selectUser);
   const userName = user.name || user.email;
+  const initial = userName?.[0] || "";
 
   return (
     <div className={className}>
       <span className={clsx(css.userName, css[`userName-${variant}`])}>
         {userName}
       </span>
-      <div className={clsx(css.avatar, css[`avatar-${variant}`])}>
+      <span className={css[`initial-${variant}`]} >{initial}</span>
+      <div className={clsx(css.avatar, css[`avatar-${variant}`])}> 
         <Icon
           iconName="user"
           className={clsx(css.icon, css[`icon-${variant}`])}

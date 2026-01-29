@@ -1,0 +1,44 @@
+.radioWrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+}
+
+.radio {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.iconRadio {
+  width: 18px;
+  height: 18px;
+
+  @media (min-width: 768px) {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.error .iconRadio {
+  color: var(--color-error);
+  stroke: var(--color-error);
+  fill: var(--color-error);
+}
+
+.select {
+  width: 164px;
+}
+
+.form {
+  stroke: var(--color-font-secondary);
+  fill: var(--color-font-secondary);
+  color: var(--color-font-secondary);
+}
+
+.filter {
+  stroke: var(--color-primary);
+  fill: var(--color-primary);
+  color: var(--color-primary);
+}

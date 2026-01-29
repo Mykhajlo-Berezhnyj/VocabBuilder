@@ -15,6 +15,10 @@ import type { AuthState } from "./auth/types";
 import filtersReducer from "./filters/slice";
 import dictionaryReducer from "./dictionary/slice";
 import userDictionaryReducer from "./userDictionary/slice";
+import tasksReduser from "./tasks/slice";
+import modalReduser from "./modal/slice";
+import { errorMiddlware } from "../components/midlware/errorMiddlware";
+import { authErrorMiddleware } from "../components/midlware/authErrorMiddleware";
 
 const persistConfig = {
   key: "auth",
@@ -24,7 +28,7 @@ const persistConfig = {
 
 const persistAuthReducer = persistReducer<AuthState>(
   persistConfig,
-  authReducer
+  authReducer,
 );
 
 export const store = configureStore({
@@ -33,13 +37,15 @@ export const store = configureStore({
     filters: filtersReducer,
     dictionary: dictionaryReducer,
     userDictionary: userDictionaryReducer,
+    tasks: tasksReduser,
+    modal: modalReduser,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+    }).concat(errorMiddlware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

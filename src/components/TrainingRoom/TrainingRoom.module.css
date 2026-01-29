@@ -1,0 +1,57 @@
+.trainingForm {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center;
+  align-items: center; */
+}
+
+.taskPrev {
+  display: flex;
+  justify-content: space-between;
+  padding: 22px 22px 18px 22px;
+  width: 100%;
+  height: 195px;
+}
+
+.answerWrap {
+  display: flex;
+  justify-content: space-between;
+}
+
+.answerForm {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto 28px;
+  grid-template-areas:
+    "area area"
+    "btnNext lang";
+  padding: 22px 22px 18px 22px;
+  height: 195px;
+}
+
+.area {
+  grid-area: area;
+  height: 100%;
+  padding: 0;
+}
+
+.btnNext {
+  grid-area: btnNext;
+  gap: 8px;
+  justify-content: flex-start;
+  width: 64px;
+  height: 24px;
+  padding: 0;
+  margin-bottom: 1px;
+  font-weight: var(--fw-medium);
+  line-height: var(--lh-base);
+  letter-spacing: 0;
+  color: rgba(var(--rgb-color-font-primary), 0.5);
+}
+
+.langLabel {
+  grid-area: lang;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}

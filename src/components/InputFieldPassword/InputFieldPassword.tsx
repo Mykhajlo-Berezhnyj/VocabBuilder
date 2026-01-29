@@ -1,12 +1,18 @@
 import { useState } from "react";
 import BtnEye from "../Button/BtnEye/BtnEye";
 import css from "./InputFieldPassword.module.css";
-import type { Path, UseFormRegister, FieldValues } from "react-hook-form";
+import type {
+  Path,
+  UseFormRegister,
+  FieldValues,
+  RegisterOptions,
+} from "react-hook-form";
 import clsx from "clsx";
 
 interface InputFieldPasswordProps<T extends FieldValues> {
   name: Path<T>;
   register: UseFormRegister<T>;
+  rules?: RegisterOptions<T>;
   error?: string | React.ReactNode;
   isValid?: boolean;
   placeholder: string;
@@ -18,6 +24,7 @@ export default function InputFieldPassword<T extends FieldValues>({
   register,
   error,
   isValid,
+  rules,
   placeholder,
   className,
   ...props
@@ -41,7 +48,7 @@ export default function InputFieldPassword<T extends FieldValues>({
         aria-label="input password"
         aria-invalid={!!error}
         {...props}
-        {...register(name)}
+        {...register(name as Path<T>, rules)}
       />
       <BtnEye
         showPassword={showPassword}

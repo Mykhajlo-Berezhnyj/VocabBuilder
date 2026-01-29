@@ -77,7 +77,7 @@ const authSlice = createSlice({
       .addCase(login.fulfilled, handleAuthFulfilled)
       .addCase(login.rejected, (state, action) => {
         handleRejected(state);
-        state.error = action.payload ?? action.error?.message ?? "Login failed";
+        state.error = action.payload ??"Login failed";
       })
       .addCase(refreshUser.pending, (state) => {
         handlePending(state);

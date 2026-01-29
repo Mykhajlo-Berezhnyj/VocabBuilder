@@ -1,14 +1,21 @@
 import type { RootState } from "../store";
 
-export const selectWords = (state: RootState) => state.dictionary.words;
+export const selectWords = (state: RootState) => state.userDictionary.words;
 
 export const selectTotalPages = (state: RootState) =>
-  state.dictionary.totalPages;
+  state.userDictionary.totalPages;
 
-export const selectIsLoading = (state: RootState) => state.dictionary.isLoading;
+export const selectTotalCount = (state: RootState) =>
+  state.userDictionary.totalCount;
 
-export const selectError = (state: RootState) => state.dictionary.error;
+export const selectIsLoading = (state: RootState) =>
+  state.userDictionary.isLoading;
 
-export const selectPage = (state: RootState) => state.dictionary.page;
+export const selectError = (state: RootState) => state.userDictionary.error;
 
-export const selectPerPage = (state: RootState) => state.dictionary.perPage;
+export const selectPage = (state: RootState) => state.userDictionary.page;
+
+export const selectPerPage = (state: RootState) => state.userDictionary.perPage;
+
+// export const selectEditingWord = (state: RootState) =>
+//   state.userDictionary.editingWord;

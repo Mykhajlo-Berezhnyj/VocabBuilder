@@ -1,7 +1,6 @@
 #root {
   width: 1440px;
   margin: 0 auto;
-  text-align: center;
 }
 
 .logo {
@@ -48,4 +47,16 @@
   @media (min-width: 768px) {
     padding: 20px 0;
   }
+}
+
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 48px 16px;
+  background-color: var(--color-primary);
+  border-radius: var(--border-radius);
+  width: 100%;
+  max-width: 343px;
 }

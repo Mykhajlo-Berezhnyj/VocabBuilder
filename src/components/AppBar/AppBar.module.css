@@ -17,6 +17,10 @@
     line-height: 32px;
     font-size: 22px;
   }
+
+  &:hover,  &:hover svg {
+   color: var(--color-hover); 
+  }
 }
 
 .userNav {
@@ -40,6 +44,14 @@
   display: flex;
   align-items: center;
   gap: 16px;
+
+  @media (min-width: 768px) {
+    gap: 28px;
+  }
+
+  @media (min-width: 1440px) {
+    gap: 16px;
+  }
 }
 
 .burgerMenu {

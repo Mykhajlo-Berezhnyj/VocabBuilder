@@ -1,0 +1,10 @@
+.langLabel {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.iconFlag {
+  width: 28px;
+  height: 28px;
+}

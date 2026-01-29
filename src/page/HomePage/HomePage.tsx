@@ -1,5 +1,10 @@
-import css from "./HomePage.module.css";
+import { Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectIsRefreshing } from "../../redux/auth/selectors";
 
 export default function HomePage() {
-  return <div className={css.home}>HomePage</div>;
+  const isRefreshing = useSelector(selectIsRefreshing);
+
+  if (isRefreshing) return null;
+  return <Navigate to="/dictionary" />;
 }

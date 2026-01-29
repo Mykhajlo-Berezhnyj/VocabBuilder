@@ -4,11 +4,11 @@ import {
   createUserWord,
   deleteWord,
   editUserWord,
-  fetchAnswers,
   fetchStatistics,
   fetchUserWords,
 } from "./operations";
 import type { UserDictionaryState } from "./types";
+import type { RejectError } from "../../components/utils/getErrorMessage";
 
 const handlePending = (state: UserDictionaryState) => {
   state.isLoading = true;
@@ -17,14 +17,15 @@ const handlePending = (state: UserDictionaryState) => {
 
 const handleRejected = (
   state: UserDictionaryState,
-  action: PayloadAction<string | undefined>
+  action: PayloadAction<RejectError | undefined>
 ) => {
   state.isLoading = false;
-  state.error = (action.payload as string) ?? "Unknown error";
+  state.error = (action.payload as RejectError);
 };
 
 const initialState: UserDictionaryState = {
   words: [],
+  // editingWord: null,
   totalPages: 0,
   page: 1,
   perPage: 10,
@@ -36,7 +37,23 @@ const initialState: UserDictionaryState = {
 const userDictionarySlice = createSlice({
   name: "userDictionary",
   initialState: initialState,
-  reducers: {},
+  reducers: {
+    // addEditingWord(state, action) {
+    //   state.editingWord =
+    //     state.words.find((word) => {
+    //       return word._id === action.payload;
+    //     }) || null;
+    // },
+    // resetEditingWord(state) {
+    //   state.editingWord = null;
+    // },
+    resetState() {
+      return initialState;
+    },
+    changePage(state, action) {
+      state.page = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchUserWords.pending, handlePending)
@@ -102,5 +119,8 @@ const userDictionarySlice = createSlice({
       .addCase(fetchStatistics.rejected, handleRejected);
   },
 });
+
+export const { resetState, changePage } =
+  userDictionarySlice.actions;
 
 export default userDictionarySlice.reducer;

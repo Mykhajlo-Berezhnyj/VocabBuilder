@@ -1,0 +1,28 @@
+.selectForm {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 343px;
+  height: 74px;
+}
+
+.selectForm > input {
+  width: 100%;
+}
+
+.radioGroup {
+  display: flex;
+  gap: 16px;
+}
+
+.radioGroup svg use {
+  stroke: var(--color-font-secondary);
+  fill: var(--color-font-secondary);
+}
+
+.error {
+  color: var(--color-error);
+  font-size: 12px;
+  font-weight: var(--fw-regular);
+  line-height: normal;
+}

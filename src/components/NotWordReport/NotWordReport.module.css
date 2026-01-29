@@ -1,0 +1,36 @@
+.sectionNotWord {
+  padding: 93.19px 0 76px;
+}
+
+.notWordContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.img {
+  margin-right: 1.34px;
+  rotate: 18deg;
+}
+
+.notWordWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  margin-top: 50.81px;
+  margin-bottom: 132px;
+}
+
+.notWordTitle {
+  font-size: var(--fs-base);
+  font-weight: var(--fw-medium);
+  line-height: var(--lh-base);
+}
+
+.notWordText {
+  font-size: var(--fs-small);
+  font-weight: var(--fw-regular);
+  height: 76px;
+  line-height: normal;
+}

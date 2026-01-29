@@ -1,0 +1,6 @@
+.langLabel {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  align-self: flex-end;
+}

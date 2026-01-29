@@ -1,24 +1,22 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios, { isAxiosError } from "axios";
-import type { FiltersState } from "../filters/types";
+import type { Filter } from "../filters/types";
 import type {
   ApiUserDictionaryResponse,
-  ApiUserTaskResponse,
   EditWordArgs,
-  userAnswer,
-  userAnswerResponse,
   UserWord,
   UserWordResponse,
 } from "./types";
+import { getErrorMessage, type RejectError } from "../../components/utils/getErrorMessage";
+import axios from "axios";
 
 interface FetchWordsArgs {
   page: number;
   perPage: number;
-  filters: FiltersState;
+  filters: Filter;
 }
 
-type ThunkConfig = {
-  rejectValue: string;
+export type ThunkConfig = {
+  rejectValue: RejectError;
 };
 
 export const fetchUserWords = createAsyncThunk<
@@ -28,45 +26,34 @@ export const fetchUserWords = createAsyncThunk<
 >(
   "userDictionary/fetchUserWords",
   async ({ page, perPage, filters }, thunkApi) => {
-    const { selectedFilters, isIrregular } = filters;
+    const { keyword, category, isIrregular } = filters;
     const params = {
       page: page,
       perPage: perPage,
-      keyword: selectedFilters.keyword || undefined,
-      category: selectedFilters.categories || undefined,
-      isIrregular:
-        selectedFilters.categories === "verb" ? isIrregular : undefined,
+      keyword: keyword || undefined,
+      category: category || undefined,
+      isIrregular: category === "verb" ? isIrregular : undefined,
     };
     try {
       const response = await axios.get("/words/own", { params });
       return response.data;
     } catch (error: unknown) {
-      if (isAxiosError(error)) {
-        return thunkApi.rejectWithValue(
-          error.response?.data?.message ?? error.message
-        );
-      }
-      return thunkApi.rejectWithValue("Unexpected error occurred");
+      return thunkApi.rejectWithValue(getErrorMessage(error));
     }
-  }
+  },
 );
 
 export const createUserWord = createAsyncThunk<
   UserWordResponse,
   UserWord,
   ThunkConfig
->("userDictionary/createUserWord", async (userWord: UserWord, thunkApi) => {
+>("userDictionary/createUserWord", async (userWord, thunkApi) => {
   try {
     const response = await axios.post("words/create", userWord);
     thunkApi.dispatch(fetchStatistics());
     return response.data;
   } catch (error) {
-    if (isAxiosError(error)) {
-      return thunkApi.rejectWithValue(
-        error.response?.data?.message ?? error.message
-      );
-    }
-    return thunkApi.rejectWithValue("Unexpected error occurred");
+    return thunkApi.rejectWithValue(getErrorMessage(error));
   }
 });
 
@@ -80,12 +67,7 @@ export const addUserWord = createAsyncThunk<
     thunkApi.dispatch(fetchStatistics());
     return response.data;
   } catch (error) {
-    if (isAxiosError(error)) {
-      return thunkApi.rejectWithValue(
-        error.response?.data?.message ?? error.message
-      );
-    }
-    return thunkApi.rejectWithValue("Unexpected error occurred");
+    return thunkApi.rejectWithValue(getErrorMessage(error));
   }
 });
 
@@ -98,12 +80,7 @@ export const editUserWord = createAsyncThunk<
     const response = await axios.patch(`words/edit/${id}`, userWord);
     return response.data;
   } catch (error) {
-    if (isAxiosError(error)) {
-      return thunkApi.rejectWithValue(
-        error.response?.data?.message ?? error.message
-      );
-    }
-    return thunkApi.rejectWithValue("Unexpected error occurred");
+    return thunkApi.rejectWithValue(getErrorMessage(error));
   }
 });
 
@@ -120,14 +97,9 @@ export const deleteWord = createAsyncThunk<deleteResponse, string, ThunkConfig>(
       thunkApi.dispatch(fetchStatistics());
       return response.data;
     } catch (error) {
-      if (isAxiosError(error)) {
-        return thunkApi.rejectWithValue(
-          error.response?.data?.message ?? error.message
-        );
-      }
-      return thunkApi.rejectWithValue("Unexpected error occured");
+      return thunkApi.rejectWithValue(getErrorMessage(error));
     }
-  }
+  },
 );
 
 export const fetchStatistics = createAsyncThunk<number, void, ThunkConfig>(
@@ -135,50 +107,9 @@ export const fetchStatistics = createAsyncThunk<number, void, ThunkConfig>(
   async (_, thunkApi) => {
     try {
       const response = await axios.get("words/statistics");
-      return response.data;
+      return response.data.totalCount;
     } catch (error) {
-      if (isAxiosError(error)) {
-        return thunkApi.rejectWithValue(
-          error.response?.data?.message ?? error.message
-        );
-      }
-      return thunkApi.rejectWithValue("Unexpected error occured");
+      return thunkApi.rejectWithValue(getErrorMessage(error));
     }
-  }
+  },
 );
-
-export const fetchAnswers = createAsyncThunk<
-  ApiUserTaskResponse,
-  void,
-  ThunkConfig
->("userDictionary/fetchAnswers", async (_, thunkApi) => {
-  try {
-    const response = await axios.get("words/tasks");
-    return response.data;
-  } catch (error) {
-    if (isAxiosError(error)) {
-      return thunkApi.rejectWithValue(
-        error.response?.data?.message ?? error.message
-      );
-    }
-    return thunkApi.rejectWithValue("Unexpected error occured");
-  }
-});
-
-export const postAnswers = createAsyncThunk<
-  userAnswerResponse[],
-  userAnswer[],
-  ThunkConfig
->("userDictionary/postAnswers", async (answers, thunkApi) => {
-  try {
-    const response = await axios.post("words/answers", answers);
-    return response.data;
-  } catch (error) {
-    if (isAxiosError(error)) {
-      return thunkApi.rejectWithValue(
-        error.response?.data?.message ?? error.message
-      );
-    }
-    return thunkApi.rejectWithValue("Unexpected error occured");
-  }
-});

@@ -1,7 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios, { AxiosError, isAxiosError } from "axios";
 import type { RootState } from "../store";
 import type { ApiAuthResponse } from "./types";
+import {
+  getErrorMessage,
+  type RejectError,
+} from "../../components/utils/getErrorMessage";
+import axios from "axios";
 
 axios.defaults.baseURL = "https://vocab-builder-backend.p.goit.global/api";
 
@@ -16,49 +20,42 @@ const clearAuthHeader = () => {
 export const registration = createAsyncThunk<
   ApiAuthResponse,
   { name: string; email: string; password: string },
-  { rejectValue: AxiosError }
+  { rejectValue: RejectError }
 >("auth/register", async (credential, thunkApi) => {
   try {
     const response = await axios.post("/users/signup", credential);
     setAuthHeader(response.data.token);
     return response.data;
   } catch (error) {
-    if (isAxiosError(error)) {
-      console.error("Registration error:", error);
-      return thunkApi.rejectWithValue(error);
-    }
-    return thunkApi.rejectWithValue(new AxiosError("Unknown error"));
+    return thunkApi.rejectWithValue(getErrorMessage(error));
   }
 });
 
 export const login = createAsyncThunk<
   ApiAuthResponse,
   { email: string; password: string },
-  { rejectValue: string }
+  { rejectValue: RejectError }
 >("auth/login", async (credential, thunkApi) => {
   try {
     const response = await axios.post("/users/signin", credential);
     setAuthHeader(response.data.token);
     return response.data;
   } catch (error) {
-    if (isAxiosError(error)) {
-      console.error("Login error:", error.response?.data);
-      return thunkApi.rejectWithValue(error.message);
-    }
-    return thunkApi.rejectWithValue("Unknown error");
+    console.log("🚀 ~ etErrorMessage(error):", getErrorMessage(error));
+    return thunkApi.rejectWithValue(getErrorMessage(error));
   }
 });
 
 export const refreshUser = createAsyncThunk<
   ApiAuthResponse,
   void,
-  { state: RootState; rejectValue: string }
+  { state: RootState; rejectValue: RejectError }
 >("auth/refresh", async (_, thunkApi) => {
   const state = thunkApi.getState();
   const persistToken = state.auth?.token;
 
   if (persistToken === null) {
-    return thunkApi.rejectWithValue("No token");
+    return thunkApi.rejectWithValue({ message: "No token" });
   }
 
   try {
@@ -66,28 +63,20 @@ export const refreshUser = createAsyncThunk<
     const response = await axios.get("/users/current");
     return response.data;
   } catch (error) {
-    if (isAxiosError(error)) {
-      console.error(error.response?.data);
-      return thunkApi.rejectWithValue(
-        error.response?.data?.message ?? error.message
-      );
-    }
-    return thunkApi.rejectWithValue("Unknown error");
+    return thunkApi.rejectWithValue(getErrorMessage(error));
   }
 });
 
-export const logout = createAsyncThunk<void, void, { rejectValue: string }>(
-  "auth/logout",
-  async (_, thunkApi) => {
-    try {
-      await axios.post("users/logout");
-      clearAuthHeader();
-    } catch (error) {
-      clearAuthHeader();
-      if (isAxiosError(error)) {
-        return thunkApi.rejectWithValue(error.message);
-      }
-      return thunkApi.rejectWithValue("Unknown error");
-    }
+export const logout = createAsyncThunk<
+  void,
+  void,
+  { rejectValue: RejectError }
+>("auth/logout", async (_, thunkApi) => {
+  try {
+    await axios.post("users/logout");
+    clearAuthHeader();
+  } catch (error) {
+    clearAuthHeader();
+    return thunkApi.rejectWithValue(getErrorMessage(error));
   }
-);
+});

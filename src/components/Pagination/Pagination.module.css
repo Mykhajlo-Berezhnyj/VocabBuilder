@@ -1,0 +1,39 @@
+.nav {
+  margin-left: 1px;
+}
+
+.containerPagination {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+
+  @media (min-width: 375px) {
+    gap: 10px;
+
+  }
+
+}
+
+.btnNav {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border-radius: 8px;
+  border: 1px solid rgba(var(--rgb-color-font-primary), 0.1);
+}
+
+.active {
+  background-color: var(--color-primary);
+  color: var(--color-font-secondary);
+}
+
+.icon {
+  color: var(--color-font-primary);
+  width: 16px;
+  height: 16px;
+}
+
+.btnNav:disabled .icon {
+  color: var(--rgb-color-primary);
+}

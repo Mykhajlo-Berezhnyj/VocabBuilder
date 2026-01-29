@@ -1,5 +1,3 @@
-import { boolean, string } from "yup";
-
 export type Category =
   | "verb"
   | "participle"
@@ -13,13 +11,27 @@ export type Category =
   | "phrasal verb"
   | "functional phrase";
 
+export type BaseFilter = {
+  keyword: string;
+};
+
+export type VerbFilter = BaseFilter & {
+  category: "verb";
+  isIrregular: boolean;
+};
+
+export type NonVerbFilter = BaseFilter & {
+  category: Exclude<Category, "verb"> | null;
+  isIrregular?: never;
+};
+
+export type Filter = VerbFilter | NonVerbFilter;
+
 export interface FiltersState {
-  category: Category[];
-  isIrregular?: boolean;
-  selectedFilters: {
-    keyword: string;
-    categories: Category | null;
-  };
+  categories: Category[];
+  selectedFilters: Filter;
   isLoading: boolean;
   error: string | null;
 }
+
+export type Option = { label: Category; value: Category };

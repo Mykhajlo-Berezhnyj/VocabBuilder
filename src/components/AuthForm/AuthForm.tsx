@@ -19,6 +19,8 @@ import toast from "react-hot-toast";
 import { isAxiosError } from "axios";
 import { selectExistingEmail } from "../../redux/auth/selectors";
 import { addExistingEmail, clearExistingEmail } from "../../redux/auth/slice";
+import ActionBlock from "../ActionBlock/ActionBlock";
+import { object } from "yup";
 
 interface AuthFormProps {
   className?: string;
@@ -42,7 +44,8 @@ export default function AuthForm({ className, isRegisterPage }: AuthFormProps) {
     resolver: yupResolver(schema),
     defaultValues: { email: existingEmail ? existingEmail : "" },
     shouldFocusError: true,
-    mode: "onChange",
+    mode: "all",
+    reValidateMode: "onChange",
   });
 
   const onSubmit = async (data: FormData) => {
@@ -61,26 +64,30 @@ export default function AuthForm({ className, isRegisterPage }: AuthFormProps) {
       }
       reset();
     } catch (error) {
-      if (isAxiosError(error)) {
-        const status = error.response?.status;
-        console.log("🚀 ~ onSubmit ~ status:", status);
-        if (status === 409) {
-          dispatch(addExistingEmail(data.email));
-          navigate("/login");
-          toast.error("This email already exists, enter password to log in");
-        } else {
-          toast.error(
-            `Axios error: ${error.response?.data?.message ?? error.message}`
-          );
-        }
-        return;
+      if (
+        typeof error === "object" &&
+        error &&
+        "status" in error &&
+        error.status === 409
+      ) {
+        dispatch(addExistingEmail(data.email));
+        navigate("/login");
+       toast("This email already exists. Please enter password to log in.", {
+      icon: "ℹ️",
+    });
+     //   } else {
+        //     toast.error(
+        //       `Axios error: ${error.response?.data?.message ?? error.message}`
+        //     );
+        //   }
+        //   return;
+        // }
       }
-
-      if (error instanceof Error) {
-        toast.error(error.message);
-      } else {
-        toast.error("Unknown error");
-      }
+      // if (error instanceof Error) {
+      //   toast.error(error.message);
+      // } else {
+      //   toast.error(error);
+      // }
     }
   };
 
@@ -134,17 +141,14 @@ export default function AuthForm({ className, isRegisterPage }: AuthFormProps) {
           className={css.inputWrap}
         />
       </div>
-      <Button
+      <ActionBlock
+        btnName={isRegisterPage ? "Register" : "Login"}
         type="submit"
-        color="fill"
-        className={css.btnLogin}
+        classNameBtn={css.btnLogin}
         disabled={isSubmitting || !isValid}
-      >
-        {isRegisterPage ? "Register" : "Login"}
-      </Button>
-      <NavLink to={isRegisterPage ? "/login" : "/register"}>
-        {isRegisterPage ? "Login" : "Register"}
-      </NavLink>
+        linkHref={isRegisterPage ? "/login" : "/register"}
+        linkText={isRegisterPage ? "Login" : "Register"}
+      />
     </form>
   );
 }

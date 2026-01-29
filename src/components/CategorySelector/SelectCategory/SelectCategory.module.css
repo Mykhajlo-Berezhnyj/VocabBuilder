@@ -1,0 +1,6 @@
+.select {
+  width: 164px;
+  font-size: var(--fs-normal);
+  font-weight: var(--fw-medium);
+  line-height: 24px;
+}

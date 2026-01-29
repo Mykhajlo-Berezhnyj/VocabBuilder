@@ -1,13 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
-import type { FiltersState } from "./types";
-import { fetchCategory } from "./operations";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import type { Category, FiltersState } from "./types";
+import { fetchCategories } from "./operations";
 
 const initialState: FiltersState = {
-  category: [],
-  isIrregular: undefined,
+  categories: [],
   selectedFilters: {
     keyword: "",
-    categories: null,
+    category: null,
   },
   isLoading: false,
   error: null,
@@ -17,37 +16,62 @@ const filterSlice = createSlice({
   name: "filters",
   initialState: initialState,
   reducers: {
-    setCategories(state, action) {
-      state.selectedFilters.categories = action.payload;
+    setCategories(state, action: PayloadAction<Category | null>) {
+      const category = action.payload;
+      if (category == "verb") {
+        state.selectedFilters = {
+          keyword: state.selectedFilters.keyword,
+          category: "verb",
+          isIrregular: false,
+        };
+      } else {
+        state.selectedFilters = {
+          keyword: state.selectedFilters.keyword,
+          category,
+        };
+      }
     },
-    setSearch(state, action) {
+    setSearch(state, action: PayloadAction<string>) {
       state.selectedFilters.keyword = action.payload;
     },
     resetSearch(state) {
       state.selectedFilters.keyword = "";
     },
     resetCategories(state) {
-      state.selectedFilters.categories = null;
+      state.selectedFilters = {
+        keyword: state.selectedFilters.keyword,
+        category: null,
+      };
+    },
+    setIsIrregular(state, action: PayloadAction<boolean>) {
+      if (state.selectedFilters.category === "verb") {
+        state.selectedFilters.isIrregular = action.payload;
+      }
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchCategory.pending, (state) => {
+      .addCase(fetchCategories.pending, (state) => {
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(fetchCategory.fulfilled, (state, action) => {
+      .addCase(fetchCategories.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
-        state.category = action.payload;
+        state.categories = action.payload;
       })
-      .addCase(fetchCategory.rejected, (state, action) => {
+      .addCase(fetchCategories.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload as string;
       });
   },
 });
 
-export const { setCategories, setSearch, resetCategories, resetSearch } =
-  filterSlice.actions;
+export const {
+  setCategories,
+  setSearch,
+  resetCategories,
+  resetSearch,
+  setIsIrregular,
+} = filterSlice.actions;
 export default filterSlice.reducer;

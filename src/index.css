@@ -41,10 +41,13 @@
   --background-header: #ffffff;
   --color-primary: #85aa9f;
   --color-hover: #a5c0b8;
+  --color-table: #dbdbdb;
   --color-primary-rgb: 133, 170, 159;
   --color-secondary-rgb: 165, 192, 184;
   --color-error: #d80027;
   --color-valid: #3cbf61;
+  --color-progress: #2BD627;
+  --color-not-progress: #d4f8d3;
   --border-input: #1214171a;
   --link-animation-color: linear-gradient(
     270deg,
@@ -55,7 +58,9 @@
   );
 
   --color-font-primary: #121417;
+  --rgb-color-font-primary: 18, 20, 23;
   --color-font-secondary: #fcfcfc;
+  --rgb-color-font-secondery: 252, 252, 252;
   --fw-regular: 400;
   --fw-medium: 500;
   --fw-semibold: 600;
@@ -130,9 +135,13 @@ body {
   min-height: 100vh;
   font-size: var(--fs-base);
   font-weight: var(--fw-medium);
-  line-height: var(--lh-base);
+  line-height: var(--lh-small);
   overflow-x: hidden;
   background-color: var(--background-secondary);
+
+  @media (min-width: 768px) {
+    line-height: var(--lh-base);
+  }
 }
 
 h1 {

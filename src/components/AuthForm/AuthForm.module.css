@@ -44,6 +44,7 @@ form > .titleBlockLogin {
 
 .inputWrap {
   position: relative;
+  height: 56px;
 }
 
 .btnLogin {

@@ -1,0 +1,137 @@
+.wordsTable {
+  padding: 16px 0;
+}
+
+.containerTable {
+  display: flex;
+  justify-content: center;
+  background-color: var(--background-header);
+
+  @media (min-width: 768px) {
+    padding: 18px;
+  }
+}
+
+table {
+  border-collapse: separate;
+  table-layout: fixed;
+  width: 100%;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  overflow: hidden;
+  border-spacing: 0;
+  max-width: 288px;
+  text-align: left;
+  background-color: var(--color-font-secondary);
+
+  @media (min-width: 375px) {
+    max-width: 343px;
+  }
+
+  @media (min-width: 768px) {
+    max-width: 668px;
+  }
+
+  @media (min-width: 1440px) {
+    max-width: 1204px;
+  }
+}
+
+td,
+th {
+  border-right: 1px solid var(--color-table);
+  /* border-bottom: 1px solid var(--color-table); */
+  box-shadow: inset 0 -1px 0 var(--color-table);
+  background-color: var(--color-font-secondary);
+  box-sizing: border-box;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+tr td:first-child,
+tr th:first-child {
+  border-left: none;
+}
+
+tr td:last-child,
+tr th:last-child {
+  border-right: none;
+}
+
+thead {
+  background-color: rgba(var(--color-primary-rgb), 0.1);
+  height: 54px;
+
+  @media (min-width: 768px) {
+    height: 69px;
+  }
+}
+
+thead th {
+  font-size: 14px;
+  font-weight: var(--fw-medium);
+  line-height: 100%;
+  padding: 16px 6px;
+  background-color: rgba(var(--color-primary-rgb), 0.1);
+
+  @media (min-width: 375px) {
+    font-size: var(--fs-normal);
+  }
+
+  @media (min-width: 768px) {
+    font-size: var(--fs-big);
+    line-height: 25px;
+  }
+
+  @media (min-width: 1440px) {
+    font-size: 20px;
+    line-height: 28px;
+  }
+}
+
+tbody {
+  background: #fcfcfc;
+}
+
+tbody td {
+  font-size: 14px;
+  line-height: 100%;
+  height: 70px;
+  vertical-align: top;
+  white-space: normal;
+  word-break: break-word;
+  padding: 16px 6px;
+
+  @media (min-width: 768px) {
+    height: 69px;
+    font-size: var(--fs-big);
+    line-height: 25px;
+  }
+
+  @media (min-width: 1440px) {
+    font-size: 20px;
+    line-height: 28px;
+  }
+}
+
+.progressWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 3px;
+
+  @media (min-width: 768px) {
+    padding: 0;
+    justify-content: space-between;
+  }
+}
+
+.circularProgress {
+  --circularSize: 24px;
+
+  @media (min-width: 768px) {
+    --circularSize: 26px;
+  }
+}

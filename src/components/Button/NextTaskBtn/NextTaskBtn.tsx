@@ -13,7 +13,7 @@ export default function NextTaskBtn({
 }: NextTaskBtnProps) {
   return (
     <Button className={className} onClick={() => handleClick()}>
-      next <Icon iconName="link-right" className={css.icon}></Icon>
+      Next <Icon iconName="link-right" className={css.icon}></Icon>
     </Button>
   );
 }

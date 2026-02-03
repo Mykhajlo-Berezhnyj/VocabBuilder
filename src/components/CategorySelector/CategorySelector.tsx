@@ -39,6 +39,7 @@ export default function CategorySelector(props: CategorySelectorProps) {
         options={options}
         value={value}
         onChange={onChange}
+        mode={mode}
       />
       {category === "verb" && (
         <VerbTypeRadio

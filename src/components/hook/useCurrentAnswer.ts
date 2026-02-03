@@ -63,6 +63,7 @@ export function useCurrentAnswer({ reset }: UseCurrentAnswerProps) {
     try {
       const res = await axios.post("words/answers", [...answers, answer]);
       setResult(res.data);
+      console.log("🚀 ~ handleAnswer ~ result:", result);
       setIsOpen(true);
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -72,7 +73,7 @@ export function useCurrentAnswer({ reset }: UseCurrentAnswerProps) {
       } else {
         toast.error("Unexpected error");
       }
-      navigate("/dictionary");
+      // navigate("/dictionary");
     }
   };
 

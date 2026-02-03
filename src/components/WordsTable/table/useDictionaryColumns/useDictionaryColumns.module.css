@@ -9,12 +9,12 @@
   }
 
   @media (min-width: 768px) {
-    padding: 22px 20px 22px 22px;
+    padding: 21px 12px 20px 22px;
     width: 160px;
   }
 
   @media (min-width: 1440px) {
-    padding: 22px;
+    padding: 20px 22px;
     width: 280px;
   }
 }
@@ -30,12 +30,12 @@
   }
 
   @media (min-width: 768px) {
-    padding: 22px 20px 22px 22px;
+    padding: 21px 12px 20px 22px;
     width: 169px;
   }
 
   @media (min-width: 1440px) {
-    padding: 22px;
+    padding: 20px 22px;
     width: 274px;
   }
 }

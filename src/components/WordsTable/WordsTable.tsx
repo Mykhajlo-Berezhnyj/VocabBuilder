@@ -6,13 +6,12 @@ import {
 } from "@tanstack/react-table";
 import Container from "../Container/Container";
 import css from "./WordsTable.module.css";
-import type { Word } from "../../redux/dictionary/types";
-import clsx from "clsx";
+import type { UserWordResponse } from "../../redux/userDictionary/types";
 
 type WordsTableProps = {
-  data: Word[];
+  data: UserWordResponse[];
   className?: string;
-  columns: ColumnDef<Word>[];
+  columns: ColumnDef<UserWordResponse>[];
 };
 
 export default function WordsTable({
@@ -27,10 +26,10 @@ export default function WordsTable({
   });
 
   return (
-    <section className={clsx(css.wordsTable, className)}>
+    <section className={css.wordsTable}>
       <Container >
         <div className={css.containerTable}>
-          <table>
+          <table className={className}>
             <thead>
               {table.getHeaderGroups().map((hg) => (
                 <tr key={hg.id}>

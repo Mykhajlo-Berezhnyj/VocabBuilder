@@ -12,7 +12,7 @@ export default function TaskPreview({ className, task }: TaskPreviewProps) {
 
   return (
     <div className={className}>
-      <p>{fieldName === "en" ? task.ua : task.en}</p>
+      <p className={css.taskTxt} >{fieldName === "en" ? task.ua : task.en}</p>
       <LanguageLabel
         fieldName={fieldName === "en" ? "ua" : "en"}
         className={css.langLabel}

@@ -14,6 +14,9 @@ import { fetchWords } from "../../redux/dictionary/operations";
 import WordsTable from "../../components/WordsTable/WordsTable";
 import Pagination from "../../components/Pagination/Pagination";
 import { changePage } from "../../redux/dictionary/slice";
+import { useRecommendColumns } from "../../components/WordsTable/table/useRecommendColumns.tsx/useRecommendColumns";
+import { addUserWord } from "../../redux/userDictionary/operations";
+import type { UserWordResponse } from "../../redux/userDictionary/types";
 
 export default function RecommendPage() {
   const dispatch = useDispatch<AppDispatch>();
@@ -22,6 +25,11 @@ export default function RecommendPage() {
   const totalPages = useSelector(selectTotalPages);
   const perPage = useSelector(selectPerPage);
   const words = useSelector(selectWords);
+    const handleClick = (id: UserWordResponse["_id"]) => {
+      dispatch(addUserWord(id));
+    };
+  
+    const columns = useRecommendColumns(handleClick);
 
   useEffect(() => {
     // if (filters.category === "verb" && filters.isIrregular === null) return;
@@ -32,7 +40,7 @@ export default function RecommendPage() {
   return (
     <main>
       <Dashboard className={css.dashboard} />
-      <WordsTable data={words} />
+      <WordsTable data={words} columns={columns} className={css.tableRecomend} />
       <Pagination
         className={css.pagination}
         page={page}

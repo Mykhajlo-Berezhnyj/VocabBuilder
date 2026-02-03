@@ -1,7 +1,7 @@
-export const customSelectStyles = {
+export const customSelectStyles = (isFilter: boolean) => ({
   control: (base) => ({
     ...base,
-    // backgroundColor: "var(--background)",
+    backgroundColor: isFilter ? "var(--color-header)" : "var(--color-primary)",
     // border: "1 solid rgba(var(--rgb-color-font-primary), 0.1)",
     boxShadow: "none",
     height: 48,
@@ -33,7 +33,8 @@ export const customSelectStyles = {
   }),
   menu: (base) => ({
     ...base,
-    // backgroundColor: "var(--background)",
+    backgroundColor: "var(--background-header)",
+    color: "var(--color-font-primary)",
     borderRadius: 15,
     padding: "0 18px",
     zIndex: 20,
@@ -48,8 +49,8 @@ export const customSelectStyles = {
     color: state.isSelected
       ? "var(--color-font-main)"
       : state.isFocused
-      ? "var(--color-font-main)"
-      : "var(--color-font-second)",
+        ? "var(--color-font-main)"
+        : "var(--color-font-second)",
     "&:active": {
       color: "var(--color-font-main)",
     },
@@ -58,13 +59,33 @@ export const customSelectStyles = {
     //   backgroundColor: "#F7F7F7",
     // },
   }),
-  dropdownIndicator: (base) => ({
+  dropdownIndicator: (base, state) => ({
     ...base,
-    color: "#101828",
+    color: isFilter
+      ? "var(--color-font-primary)"
+      : "var(--color-font-secondary)",
+    ":hover": { opacity: 0.5
+      // color: isFilter
+      //   ? "var(--color-font-secondary)"
+      //   : "var(--color-font-primary)",
+    },
     padding: 13,
+    cursor: "pointer",
+    transition: "transform 0.3s ease",
+    transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : "rotate(0deg)",
     size: 20,
   }),
   indicatorSeparator: () => ({
     display: "block",
   }),
-};
+  clearIndicator: (base) => ({
+    ...base,
+    color: isFilter
+      ? "var(--color-font-primary)"
+      : "var(--color-font-secondary)",
+    padding: 8,
+    cursor: "pointer",
+    transition: "all 0.3s ease, color 0.3s ease",
+    ":hover": { color: "red", transform: "rotate(180deg)" },
+  }),
+});

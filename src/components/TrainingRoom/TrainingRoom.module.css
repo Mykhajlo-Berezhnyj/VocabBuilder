@@ -1,8 +1,41 @@
 .trainingForm {
   display: flex;
   flex-direction: column;
-  /* justify-content: center;
-  align-items: center; */
+  justify-content: center;
+  align-items: center;
+
+  @media (min-width: 768px) {
+    align-items: flex-start;
+    gap: 40px;
+  }
+
+  @media (min-width: 1440px) {
+    gap: 80px;
+  }
+}
+
+.formWrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--background-header);
+  margin-bottom: 116px;
+  padding: 0;
+  width: 100%;
+
+  @media (min-width: 768px) {
+    padding: 18px;
+    width: 704px;
+    margin-bottom: 0;
+  }
+
+  @media (min-width: 1440px) {
+    flex-direction: row;
+    padding: 18px;
+    width: 1240px;
+    height: 338px;
+  }
 }
 
 .taskPrev {
@@ -11,6 +44,16 @@
   padding: 22px 22px 18px 22px;
   width: 100%;
   height: 195px;
+  background-color: var(--color-font-secondary);
+
+  @media (min-width: 768px) {
+    height: 282px;
+  }
+
+  @media (min-width: 1440px) {
+    width: 602px;
+    height: 302px;
+  }
 }
 
 .answerWrap {
@@ -19,6 +62,7 @@
 }
 
 .answerForm {
+  position: relative;
   display: grid;
   grid-template-columns: 1fr auto;
   grid-template-rows: auto 28px;
@@ -26,13 +70,56 @@
     "area area"
     "btnNext lang";
   padding: 22px 22px 18px 22px;
+  width: 100%;
   height: 195px;
+  background-color: var(--color-font-secondary);
+  border-bottom: 1px solid var(--color-table);
+
+  @media (min-width: 768px) {
+    grid-template-columns: 2fr auto;
+    grid-template-rows: auto 24px;
+    grid-template-areas:
+      "area lang"
+      "btnNext btnNext";
+    padding: 22px;
+    height: 282px;
+  }
+
+  @media (min-width: 1440px) {
+    padding: 22px 22px 24px 22px;
+    width: 602px;
+    height: 302px;
+    border-bottom: none;
+    border-right: 1px solid var(--color-table);
+  }
 }
 
 .area {
   grid-area: area;
   height: 100%;
   padding: 0;
+}
+
+.area span {
+  bottom: 44px;
+
+  @media (min-width: 768px) {
+    bottom: 46px;
+    font-size: var(--fs-base);
+  }
+}
+
+.area textarea {
+  &::placeholder {
+    color: var(--color-font-primary);
+    font-family: "MacPaw Fixel Display";
+    font-weight: var(--fw-medium);
+  }
+
+  @media (min-width: 768px) {
+    font-size: 20px;
+    line-height: 30px;
+  }
 }
 
 .btnNext {
@@ -47,6 +134,10 @@
   line-height: var(--lh-base);
   letter-spacing: 0;
   color: rgba(var(--rgb-color-font-primary), 0.5);
+
+  &:hover {
+    color: var(--color-font-primary);
+  }
 }
 
 .langLabel {
@@ -54,4 +145,56 @@
   display: flex;
   gap: 8px;
   align-items: center;
+
+  @media (min-width: 768px) {
+    height: 32px;
+  }
+}
+
+form .actionsBlock {
+  display: flex;
+  flex-direction: column;
+  height: 86px;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    height: 86px;
+    width: 416px;
+    gap: 10px;
+  }
+}
+
+.actionsBlock button {
+  width: 100%;
+
+  @media (min-width: 343px) {
+    width: 343px;
+  }
+
+  @media (min-width: 768px) {
+    width: 203px;
+  }
+}
+
+.actionsBlock a {
+  line-height: 22px;
+
+  @media (min-width: 768px) {
+    width: 203px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 203;
+    height: 56;
+    padding-top: 14px;
+    padding-right: 71px;
+    padding-bottom: 14px;
+    padding-left: 71px;
+    border-radius: 30px;
+    border: 1px solid var(--color-primary);
+  }
+
+  @media (min-width: 768px) {
+    font-size: var(--fs-big);
+  }
 }

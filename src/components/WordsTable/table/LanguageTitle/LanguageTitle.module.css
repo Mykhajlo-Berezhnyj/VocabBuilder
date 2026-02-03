@@ -1,15 +1,14 @@
-.langLabel {
+.titleWrap {
   display: flex;
-  gap: 8px;
+  justify-content: space-between;
   align-items: center;
-  width: 114px;
 }
 
-.iconFlag {
+.icon {
   width: 28px;
   height: 28px;
 
-  @media (min-width: 768px) {
+  @media (min-width: 1440px) {
     width: 32px;
     height: 32px;
   }

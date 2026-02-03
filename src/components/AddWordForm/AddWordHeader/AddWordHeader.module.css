@@ -1,3 +1,16 @@
+.headerForm {
+  font-weight: var(--fw-regular);
+  line-height: 1.5;
+  color: var(--color-font-secondary);
+}
+
+.filterCategory {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 74px;
+}
+
 .selectForm {
   display: flex;
   flex-direction: column;

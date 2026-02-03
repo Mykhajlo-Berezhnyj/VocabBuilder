@@ -4,6 +4,7 @@ import css from "./ActionBlock.module.css";
 import clsx from "clsx";
 
 type ActionBlockProps = {
+  className?: string;
   classNameBtn?: string;
   btnName: string;
   type?: "button" | "submit" | "reset";
@@ -17,6 +18,7 @@ type ActionBlockProps = {
 };
 
 export default function ActionBlock({
+  className,
   classNameBtn,
   btnName,
   type = "button",
@@ -29,7 +31,7 @@ export default function ActionBlock({
   state,
 }: ActionBlockProps) {
   return (
-    <div className={css.btnWrap}>
+    <div className={clsx(css.btnWrap, className)}>
       <Button
         type={type}
         color="fill"

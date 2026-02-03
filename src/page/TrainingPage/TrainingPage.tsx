@@ -4,12 +4,17 @@ import type { AppDispatch } from "../../redux/store";
 import { fetchTasks } from "../../redux/tasks/operations";
 import TrainingRoom from "../../components/TrainingRoom/TrainingRoom";
 import css from "./TrainingPage.module.css";
-import { selectTasks } from "../../redux/tasks/selector";
+import { selectCurrentIndex, selectTasks } from "../../redux/tasks/selector";
 import NotWordReport from "../../components/NotWordReport/NotWordReport";
+import ProgressBar from "../../components/ProgressBar/ProgressBar";
 
 export default function TrainingPage() {
   const dispatch = useDispatch<AppDispatch>();
   const tasks = useSelector(selectTasks);
+  const current = useSelector(selectCurrentIndex);
+  const progress = Math.round((current / tasks.length) * 100);
+
+
 
   useEffect(() => {
     dispatch(fetchTasks());
@@ -20,7 +25,10 @@ export default function TrainingPage() {
       {tasks.length === 0 ? (
         <NotWordReport />
       ) : (
-        <TrainingRoom className={css.sectionTrainingRoom} />
+        <>
+          <ProgressBar progress={progress}  className={css.sectionProgress} />
+          <TrainingRoom className={css.sectionTrainingRoom} />
+        </>
       )}
     </main>
   );

@@ -1,0 +1,29 @@
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.titleColumn {
+  font-size: var(--fs-small);
+  font-weight: var(--fw-regular);
+  line-height: 19px;
+
+  @media (min-width: 768px) {
+    font-size: var(--fs-base);
+    line-height: 24px;
+  }
+}
+
+.answerList {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  line-height: 24px;
+
+    @media (min-width: 768px) {
+    gap: 8px;
+    font-size: 20px;
+    line-height: 28px;
+  }
+}

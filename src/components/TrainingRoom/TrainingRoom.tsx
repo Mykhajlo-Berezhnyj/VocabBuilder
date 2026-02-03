@@ -45,37 +45,40 @@ export default function TrainingRoom({ className }: TrainingRoomProps) {
     <section className={className}>
       <Container>
         <form className={css.trainingForm} onSubmit={handleSubmit(onSubmit)}>
-          <div className={css.answerForm}>
-            <InputField
-              className={css.area}
-              as="textarea"
-              placeholder="Введіть переклад"
-              name={fieldName}
-              register={register}
-              error={errors[fieldName]?.message}
-              rules={
-                fieldName === "en"
-                  ? {
-                      pattern: {
-                        value: /\b[A-Za-z'-]+(?:\s+[A-Za-z'-]+)*\b/,
-                        message: "Invald word",
-                      },
-                    }
-                  : {
-                      pattern: {
-                        value: /^(?![A-Za-z])[А-ЯІЄЇҐґа-яієїʼ\s]+$/u,
-                        message: "Invalid ukrainian word",
-                      },
-                    }
-              }
-            />
-            <LanguageLabel fieldName={fieldName} className={css.langLabel} />
-            {!isLastTask && (
-              <NextTaskBtn className={css.btnNext} handleClick={handleNext} />
-            )}
+          <div className={css.formWrap}>
+            <div className={css.answerForm}>
+              <InputField
+                className={css.area}
+                as="textarea"
+                placeholder="Введіть переклад"
+                name={fieldName}
+                register={register}
+                error={errors[fieldName]?.message}
+                rules={
+                  fieldName === "en"
+                    ? {
+                        pattern: {
+                          value: /\b[A-Za-z'-]+(?:\s+[A-Za-z'-]+)*\b/,
+                          message: "Invald english word",
+                        },
+                      }
+                    : {
+                        pattern: {
+                          value: /^(?![A-Za-z])[А-ЯІЄЇҐґа-яієїʼ\s]+$/u,
+                          message: "Invalid ukrainian word",
+                        },
+                      }
+                }
+              />
+              <LanguageLabel fieldName={fieldName} className={css.langLabel} />
+              {!isLastTask && (
+                <NextTaskBtn className={css.btnNext} handleClick={handleNext} />
+              )}
+            </div>
+            <TaskPreview className={css.taskPrev} task={task} />
           </div>
-          <TaskPreview className={css.taskPrev} task={task} />
           <ActionBlock
+            className={css.actionsBlock}
             classNameBtn={css.btnSabmit}
             classNameLink={css.lnkAction}
             btnName="Save"
@@ -86,11 +89,11 @@ export default function TrainingRoom({ className }: TrainingRoomProps) {
           />
         </form>
       </Container>
-      {/* {isOpen && (
+      {isOpen && (
         <Modal isOpen={isOpen} onClose={closeModal}>
-          <WellDoneModal answers={result} />
+          <WellDoneModal answers={result} className={css.wellDoneModal} />{" "}
         </Modal>
-      )} */}
+      )}
     </section>
   );
 }

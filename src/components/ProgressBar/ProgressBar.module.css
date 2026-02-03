@@ -1,0 +1,25 @@
+.progressContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.circularWrap {
+  position: relative;
+}
+
+.circular {
+  --size: 44px;
+  --thickness: 3.5;
+
+  @media (min-width: 768px) {
+    --size: 58px;
+    --thickness: 4.5;
+  }
+}
+
+.progress {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

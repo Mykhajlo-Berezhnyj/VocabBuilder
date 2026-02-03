@@ -6,6 +6,7 @@
   display: flex;
   justify-content: center;
   background-color: var(--background-header);
+  padding: 0;
 
   @media (min-width: 768px) {
     padding: 18px;
@@ -23,6 +24,7 @@ table {
   max-width: 288px;
   text-align: left;
   background-color: var(--color-font-secondary);
+  color: var(--color-font-primary);
 
   @media (min-width: 375px) {
     max-width: 343px;
@@ -115,6 +117,7 @@ tbody td {
     line-height: 28px;
   }
 }
+
 
 .progressWrap {
   display: flex;

@@ -13,7 +13,7 @@ export default function AnswersColumn({
 }: AnswersColumnProps) {
   return (
     <div className={css.column}>
-      <p>{nameColumn}</p>
+      <p className={css.titleColumn} >{nameColumn}</p>
       <ul className={css.answerList}>
         {answers.map((a) => (
           <li className={css.answerItem} key={a._id}>

@@ -8,6 +8,7 @@ import type { AppDispatch } from "../../../redux/store";
 import { deleteWord } from "../../../redux/userDictionary/operations";
 import Button from "../Button";
 import type { UserWordResponse } from "../../../redux/userDictionary/types";
+import toast from "react-hot-toast";
 
 type ActionsBtnProps = {
   editingWord: UserWordResponse;
@@ -61,6 +62,7 @@ export default function ActionsBtn({ editingWord, onEdit }: ActionsBtnProps) {
         <MenuItem
           onClick={() => {
             dispatch(deleteWord(editingWord._id));
+            toast.success("Word delete from dictionary");
             handleClose();
           }}
         >

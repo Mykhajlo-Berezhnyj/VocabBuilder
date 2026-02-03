@@ -11,13 +11,13 @@ export default function LanguageLabel({
   fieldName,
 }: LanguageLabelProps) {
   return (
-    <span className={className}>
+    <div className={className}>
       <Icon
         iconName={fieldName === "en" ? "icon-uk" : "icon-ua"}
         className={css.iconFlag}
         aria-hidden="true"
       />
       {fieldName === "en" ? "English" : "Ukrainian"}
-    </span>
+    </div>
   );
 }

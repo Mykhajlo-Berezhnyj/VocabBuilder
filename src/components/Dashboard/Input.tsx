@@ -1,4 +1,5 @@
 import { useEffect, useReducer, useRef, useState } from "react";
+import { useForm } from "react-hook-form";
 
 export function InputUncontroled() {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -27,16 +28,34 @@ export function InputUncontroled() {
   );
 }
 
+type FormValues = {
+  name: string;
+};
+
 export function ControlledInput() {
   const [value, setValue] = useState("");
-  console.log("🚀 ~ ControlledInput ~ value:", value);
+
+  //   useEffect(()=> {
+  // // console.log("🚀 ~ ControlledInput ~ value:", value);
+  //   },[value])
+
+  const onSubmit = (data: FormValues) => {
+    console.log("🚀 ~ ControlledInput ~ Submitvalue:", data);
+  };
+
+  const { register, handleSubmit, formState: {error, isValid} } = useForm();
 
   return (
-    <input
-      type="text"
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
-    />
+    <form onSubmit={handleSubmit(onSubmit)}>
+      {/* <input
+        type="text"
+        name = "name"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+      /> */}
+      <input {...register("userName")} />
+      <button type="submit">Send</button>
+    </form>
   );
 }
 

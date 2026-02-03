@@ -3,8 +3,9 @@
   gap: 8px;
   line-height: var(--lh-base);
 
-  &:hover {
-    color: var(--color-primary);
+  &:hover,
+  &:hover .iconPlus {
+    color: rgba(var(--color-primary-rgb), 0.5);
   }
 
   @media (min-width: 1440px) {
@@ -19,15 +20,19 @@
   gap: 8px;
   color: var(--color-font-primary);
 
+  &:hover,
+  &:hover .iconPlus {
+    color: rgba(var(--color-primary-rgb), 0.5);
+  }
+
   @media (min-width: 1440px) {
     width: 128px;
     height: 24px;
   }
-
 }
-
 
 .iconPlus {
   width: 20px;
   height: 20px;
+  color: var(--color-primary);
 }

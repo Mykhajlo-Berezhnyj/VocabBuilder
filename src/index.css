@@ -138,6 +138,7 @@ body {
   line-height: var(--lh-small);
   overflow-x: hidden;
   background-color: var(--background-secondary);
+  color: var(--color-font-primary);
 
   @media (min-width: 768px) {
     line-height: var(--lh-base);

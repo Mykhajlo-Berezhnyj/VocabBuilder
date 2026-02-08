@@ -1,4 +1,4 @@
-import type { AxiosError } from "axios";
+import type { RejectError } from "../../components/utils/getErrorMessage";
 
 export type User = {
   name: string | null;
@@ -12,7 +12,7 @@ export interface AuthState {
   isLoading: boolean;
   isLoggedIn: boolean;
   isRefreshing: boolean;
-  error: string | AxiosError | null;
+  error: RejectError | null;
 }
 
 export interface ApiAuthResponse {

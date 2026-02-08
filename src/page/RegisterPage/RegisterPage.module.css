@@ -3,6 +3,7 @@
   min-height: calc(100dvh - 64px);
   position: relative;
   overflow: hidden;
+  width: 100%;
 
   @media (min-width: 768px) {
     justify-content: flex-start;
@@ -82,7 +83,6 @@
   align-items: center;
   width: 100%;
   /* height: auto; */
-  max-width: 343px;
   position: absolute;
   bottom: 0;
   z-index: 2;
@@ -100,42 +100,7 @@
   }
 }
 
-.authForm {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  max-width: 343px;
-  padding: 32px 16px 57px;
-  background-color: rgba(var(--color-primary-rgb), 0.1);
-  border-top-left-radius: var(--border-radius);
-  border-top-right-radius: var(--border-radius);
-  line-height: 24px;
 
-  @media (min-width: 768px) {
-    padding: 48px 64px;
-    max-width: 628px;
-    /* height: 592px; */
-    border-radius: var(--border-big-radius);
-  }
-
-  @media (min-width: 1440px) {
-    padding: 48px 64px;
-  }
-}
-
-.authForm > *:not(:last-child) {
-  margin-bottom: 16px;
-
-  @media (min-width: 768px) {
-    margin-bottom: 32px;
-  }
-}
-
-.authForm > :nth-last-child(2) {
-  margin-bottom: 16px;
-}
 
 .loginForm {
   @media (min-width: 1440px) {

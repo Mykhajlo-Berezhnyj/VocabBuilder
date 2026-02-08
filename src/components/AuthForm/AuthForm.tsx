@@ -92,7 +92,7 @@ export default function AuthForm({ className, isRegisterPage }: AuthFormProps) {
   };
 
   return (
-    <form className={className} onSubmit={handleSubmit(onSubmit)}>
+    <form className={clsx(css.authForm, className)} onSubmit={handleSubmit(onSubmit)}>
       <div
         className={clsx(css.titleBlock, !isRegisterPage && css.titleBlockLogin)}
       >
@@ -141,7 +141,7 @@ export default function AuthForm({ className, isRegisterPage }: AuthFormProps) {
           className={css.inputWrap}
         />
       </div>
-      <ActionBlock
+      <ActionBlock className={css.btnWrap}
         btnName={isRegisterPage ? "Register" : "Login"}
         type="submit"
         classNameBtn={css.btnLogin}

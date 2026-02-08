@@ -14,7 +14,7 @@ const handleRejected = (state: AuthState) => {
 
 const handleAuthFulfilled = (
   state: AuthState,
-  action: PayloadAction<ApiAuthResponse>
+  action: PayloadAction<ApiAuthResponse>,
 ) => {
   state.isLoading = false;
   state.error = null;
@@ -30,6 +30,7 @@ const handleLogOut = (state: AuthState) => {
   state.user = { name: null, email: null };
   state.token = null;
   state.isLoggedIn = false;
+  state.isRefreshing = false;
 };
 
 const initialState: AuthState = {
@@ -71,30 +72,30 @@ const authSlice = createSlice({
       .addCase(registration.rejected, (state, action) => {
         handleRejected(state);
         state.error =
-          action.payload ?? action.error?.message ?? "Registration failed";
+          action.payload ?? {message: "Registration failed"};
       })
       .addCase(login.pending, handlePending)
       .addCase(login.fulfilled, handleAuthFulfilled)
       .addCase(login.rejected, (state, action) => {
         handleRejected(state);
-        state.error = action.payload ??"Login failed";
+        state.error = action.payload ?? {message: "Login failed"};
       })
       .addCase(refreshUser.pending, (state) => {
-        handlePending(state);
+        state.error = null;
         state.isRefreshing = true;
       })
       .addCase(refreshUser.fulfilled, handleAuthFulfilled)
       .addCase(refreshUser.rejected, (state, action) => {
-        handleRejected(state);
+        state.isRefreshing = false;
         state.error =
-          action.payload ?? action.error?.message ?? "Refresh failed";
+          action.payload ?? {message: "Refresh failed"};
       })
       .addCase(logout.pending, handlePending)
       .addCase(logout.fulfilled, handleLogOut)
       .addCase(logout.rejected, (state, action) => {
-        handleRejected(state);
+        handleLogOut(state);
         state.error =
-          action.payload ?? action.error?.message ?? "Logout failed";
+          action.payload ?? {message: "Logout failed"};
       });
   },
 });

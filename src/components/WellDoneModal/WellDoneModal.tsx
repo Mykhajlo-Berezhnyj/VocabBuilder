@@ -13,8 +13,11 @@ export default function WellDoneModal({
   answers,
   className,
 }: WellDoneModalProps) {
+  const total = answers.length;
   const correctAnswers = answers.filter((a) => a.isDone);
   const mistakes = answers.filter((a) => !a.isDone);
+  const correctPercent = Math.round((correctAnswers.length / total) * 100);
+  const mistakesPercent = Math.round((mistakes.length / total) * 100);
 
   return (
     <section className={clsx(css.sectionWellDone, className)}>
@@ -22,10 +25,13 @@ export default function WellDoneModal({
         <h2 className={css.title}>Well done</h2>
         <div className={css.columnWrap}>
           <AnswersColumn
-            nameColumn="Correct answers:"
+            nameColumn={`Correct answers (${correctPercent}%)`}
             answers={correctAnswers}
           />
-          <AnswersColumn nameColumn="Mistakes:" answers={mistakes} />
+          <AnswersColumn
+            nameColumn={`Mistakes (${mistakesPercent}%)`}
+            answers={mistakes}
+          />
         </div>
       </Container>
     </section>

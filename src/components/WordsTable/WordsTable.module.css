@@ -21,21 +21,16 @@ table {
   border-top-right-radius: 8px;
   overflow: hidden;
   border-spacing: 0;
-  max-width: 288px;
   text-align: left;
   background-color: var(--color-font-secondary);
   color: var(--color-font-primary);
 
-  @media (min-width: 375px) {
-    max-width: 343px;
-  }
-
   @media (min-width: 768px) {
-    max-width: 668px;
+    width: 668px;
   }
 
   @media (min-width: 1440px) {
-    max-width: 1204px;
+    width: 1204px;
   }
 }
 

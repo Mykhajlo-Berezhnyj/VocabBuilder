@@ -101,7 +101,7 @@
 }
 
 .area span {
-  bottom: 44px;
+  top: 0;
 
   @media (min-width: 768px) {
     bottom: 46px;
@@ -151,14 +151,14 @@
   }
 }
 
-form .actionsBlock {
+.trainingForm .actionsBlock {
   display: flex;
   flex-direction: column;
   height: 86px;
 
   @media (min-width: 768px) {
     flex-direction: row;
-    height: 86px;
+    height: 56px;
     width: 416px;
     gap: 10px;
   }
@@ -180,12 +180,11 @@ form .actionsBlock {
   line-height: 22px;
 
   @media (min-width: 768px) {
-    width: 203px;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 203;
-    height: 56;
+    width: 203px;
+    height: 56px;
     padding-top: 14px;
     padding-right: 71px;
     padding-bottom: 14px;

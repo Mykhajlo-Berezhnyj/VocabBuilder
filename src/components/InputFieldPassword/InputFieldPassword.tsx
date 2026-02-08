@@ -36,7 +36,7 @@ export default function InputFieldPassword<T extends FieldValues>({
   };
 
   return (
-    <div className={className}>
+    <div className={clsx(css.field, className)}>
       <input
         className={clsx(
           css.input,

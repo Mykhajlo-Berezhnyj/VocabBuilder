@@ -21,7 +21,7 @@ export default function TrainingRoom({ className }: TrainingRoomProps) {
     register,
     handleSubmit,
     reset,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm();
   const { handleAnswer, isLastTask, tasks, task, result, isOpen, closeModal } =
     useCurrentAnswer({ reset });
@@ -53,7 +53,7 @@ export default function TrainingRoom({ className }: TrainingRoomProps) {
                 placeholder="Введіть переклад"
                 name={fieldName}
                 register={register}
-                error={errors[fieldName]?.message}
+                error={errors[fieldName]?.message as string}
                 rules={
                   fieldName === "en"
                     ? {

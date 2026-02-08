@@ -36,7 +36,7 @@ export default function InputField<T extends FieldValues>({
   const Component = as;
 
   return (
-    <div className={className}>
+    <div className={clsx(css.field, className)}>
       <Component
         type={type}
         aria-label={placeholder ?? name}

@@ -8,6 +8,8 @@ export const selectIsLoading = (state: RootState) => state.auth.isLoading;
 
 export const selectError = (state: RootState) => state.auth.error;
 
+export const selectToken = (state: RootState) => state.auth.token;
+
 export const selectExistingEmail = (state: RootState) =>
   state.auth.existingEmail;
 

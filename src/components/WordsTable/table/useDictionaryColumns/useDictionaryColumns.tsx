@@ -7,28 +7,35 @@ import { useMemo } from "react";
 import type { UserWordResponse } from "../../../../redux/userDictionary/types";
 import LanguageTitle from "../LanguageTitle/LanguageTitle";
 
-export function baseColumns(css: CSSModuleClasses) {
-  return [
-    {
-      accessorKey: "en",
-      id: "en",
-      header: <LanguageTitle title="Word" iconName={"icon-uk"} />,
-      meta: { className: css.en },
-    },
-    {
-      accessorKey: "ua",
-      id: "ua",
-      header: <LanguageTitle title="Translation" iconName={"icon-ua"} />,
-      meta: { className: css.ua },
-    },
-  ];
+export function useBaseColumns(
+  css: CSSModuleClasses,
+): ColumnDef<UserWordResponse>[] {
+  return useMemo(
+    () => [
+      {
+        accessorKey: "en",
+        id: "en",
+        header: () => <LanguageTitle title="Word" iconName={"icon-uk"} />,
+        meta: { className: css.en },
+      },
+      {
+        accessorKey: "ua",
+        id: "ua",
+        header: () => (
+          <LanguageTitle title="Translation" iconName={"icon-ua"} />
+        ),
+        meta: { className: css.ua },
+      },
+    ],
+    [css],
+  );
 }
 
 export function useDictionaryColumns(
   handleClick: (editingWord: UserWordResponse) => void,
 ) {
   const isMobile = useMediaQuery("(max-width: 767px)");
-  const base = baseColumns(css);
+  const base = useBaseColumns(css);
 
   return useMemo<ColumnDef<UserWordResponse>[]>(
     () => [
@@ -63,6 +70,6 @@ export function useDictionaryColumns(
         },
       },
     ],
-    [isMobile, handleClick],
+    [base, isMobile, handleClick],
   );
 }

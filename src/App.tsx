@@ -9,7 +9,10 @@ import { type AppDispatch } from "./redux/store";
 import { fetchStatistics } from "./redux/userDictionary/operations";
 import { refreshUser } from "./redux/auth/operations";
 import { fetchCategories } from "./redux/filters/operations";
-import { selectIsRefreshing, selectUser } from "./redux/auth/selectors";
+import {
+  selectIsLoggedIn,
+  selectToken,
+} from "./redux/auth/selectors";
 import { resetState } from "./redux/userDictionary/slice";
 import { closeModal } from "./redux/modal/slice";
 import {
@@ -22,6 +25,7 @@ import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import PublicRoute from "./components/PublicRoute/PublicRoute";
 import HomePage from "./page/HomePage/HomePage";
 import ModalContent from "./components/Modal/ModalContent/ModalContent";
+import Loader from "./components/Loader/Loader";
 
 const DictionaryPage = lazy(
   () => import("./page/DictionaryPage/DictionaryPage"),
@@ -34,8 +38,8 @@ const RegisterPage = lazy(() => import("./page/RegisterPage/RegisterPage"));
 function App() {
   const isOpen = useSelector(selectIsOpen);
   const dispatch = useDispatch<AppDispatch>();
-  const user = useSelector(selectUser);
-  const isRefreshing = useSelector(selectIsRefreshing);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const token = useSelector(selectToken);
   const type = useSelector(selectTypeModal);
   const editingWord = useSelector(selectPayload);
   console.log("🚀 ~ App ~ type:", type);
@@ -45,25 +49,23 @@ function App() {
   };
 
   useEffect(() => {
-    dispatch(refreshUser());
-  }, [dispatch]);
+    if (token && !isLoggedIn) {
+      dispatch(refreshUser());
+    }
+  }, [dispatch, token, isLoggedIn]);
 
   useEffect(() => {
-    if (user) {
+    if (isLoggedIn) {
       dispatch(fetchStatistics());
       dispatch(fetchCategories());
     } else {
       dispatch(resetState());
     }
-  }, [dispatch, user]);
-
-  if (isRefreshing) {
-    return <p>Refreshing</p>;
-  }
+  }, [dispatch, isLoggedIn]);
 
   return (
     <>
-      <Suspense>
+      <Suspense fallback={<Loader />}>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route element={<PublicRoute />}>

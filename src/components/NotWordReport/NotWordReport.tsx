@@ -13,7 +13,7 @@ export default function NotWordReport() {
 
   const handleClick = () => {
     navigate("/dictionary");
-    dispatch(openModal());
+    dispatch(openModal({ type: "addWord" }));
   };
 
   return (
@@ -21,23 +21,26 @@ export default function NotWordReport() {
       <Container className={css.notWordContainer}>
         <Icon src={notWordReport} className={css.img} />
         <div className={css.notWordWrap}>
-          <h2 className={css.notWordTitle}>
-            You don't have a single word to learn right now.
-             </h2>
-          <p className={css.notWordText}>
-            Please create or add a word to start the workout. We want to improve
-            your vocabulary and develop your knowledge, so please share the
-            words you are interested in adding to your study.
-          </p>
+          <header className={css.header}>
+            <h2 className={css.headerTitle}>
+              You don't have a single word to learn right now.
+            </h2>
+            <p className={css.headerText}>
+              Please create or add a word to start the workout. We want to
+              improve your vocabulary and develop your knowledge, so please
+              share the words you are interested in adding to your study.
+            </p>
+          </header>
+          <ActionBlock
+            className={css.actionBlock}
+            classNameBtn={css.btnSabmit}
+            classNameLink={css.lnkAction}
+            btnOnClick={handleClick}
+            btnName="Add word"
+            linkText="Cancel"
+            linkHref="/dictionary"
+          />
         </div>
-        <ActionBlock
-          classNameBtn={css.btnSabmit}
-          classNameLink={css.lnkAction}
-          btnOnClick={handleClick}
-          btnName="Add word"
-          linkText="Cancel"
-          linkHref="/dictionary"
-        />
       </Container>
     </section>
   );

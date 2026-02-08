@@ -5,8 +5,13 @@
 }
 
 .icon {
-  width: 28px;
-  height: 28px;
+  display: none;
+
+  @media (min-width: 768px) {
+    display: block;
+    width: 28px;
+    height: 28px;
+  }
 
   @media (min-width: 1440px) {
     width: 32px;

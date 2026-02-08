@@ -5,26 +5,35 @@ import UserBar from "../UserBar/UserBar";
 import UserNav from "../UserNav/UserNav";
 import css from "./AppBar.module.css";
 import clsx from "clsx";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../../redux/store";
+import { useNavigate } from "react-router-dom";
+import { logout } from "../../redux/auth/operations";
+import toast from "react-hot-toast";
+import useWindowWidth from "../hook/useWindowWidth";
 
 type AppBarProps = {
   className?: string;
 };
 
-export const isDestkop = window.innerWidth >= 1440;
-
 export default function AppBar({ className }: AppBarProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
+  const width = useWindowWidth();
+  const isDestkop = width >= 1440;
 
   useEffect(() => {
-    function handleResize() {
-      if (isDestkop) {
-        setIsOpen(false);
-      }
+    if (isDestkop) {
+      queueMicrotask(() => setIsOpen((prev) => (prev ? false : prev)));
     }
-    window.addEventListener("resize", handleResize);
-    handleResize();
-    return () => window.removeEventListener("resize", handleResize);
-  }, ["resize"]);
+  }, [isDestkop]);
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/login");
+    toast.success("User logout successes");
+  };
 
   function handleCloseMenu() {
     setIsOpen(false);
@@ -38,21 +47,32 @@ export default function AppBar({ className }: AppBarProps) {
     <header className={className}>
       <Container className={css.containerHeader}>
         <Logo className={css.logo} />
-        <UserNav className={clsx(css.userNav, css.userNavHeader)} />
-        <UserBar className={css.userMenu} togleMenu={togleMenu} />
+        <UserNav
+          className={clsx(css.userNav, css.userNavHeader)}
+          handleLogout={handleLogout}
+        />
+        <UserBar
+          className={css.userMenu}
+          togleMenu={togleMenu}
+          handleLogout={handleLogout}
+        />
 
-        <div className={clsx(css.burgerMenu, isOpen && css.open)}>
-          <UserBar
-            isOpen={isOpen}
-            variant="menu"
-            togleMenu={togleMenu}
-            className={clsx(css.userMenu, isOpen && css.open)}
-          />
-          <UserNav
-            className={clsx(css.userNav, isOpen && css.open)}
-            onCloseMenu={handleCloseMenu}
-          />
-        </div>
+        {!isDestkop && (
+          <div className={clsx(css.burgerMenu, isOpen && css.open)}>
+            <UserBar
+              isOpen={isOpen}
+              variant="menu"
+              togleMenu={togleMenu}
+              handleLogout={handleLogout}
+              className={clsx(css.userMenu, isOpen && css.open)}
+            />
+            <UserNav
+              className={clsx(css.userNav, isOpen && css.open)}
+              onCloseMenu={handleCloseMenu}
+              handleLogout={handleLogout}
+            />
+          </div>
+        )}
       </Container>
     </header>
   );

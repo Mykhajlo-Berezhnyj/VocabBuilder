@@ -3,13 +3,17 @@ import {
   selectIsLoggedIn,
   selectIsRefreshing,
 } from "../../redux/auth/selectors";
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useSearchParams } from "react-router-dom";
+import Loader from "../Loader/Loader";
 
 export default function PublicRoute() {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const isRefreshing = useSelector(selectIsRefreshing);
+  const [searchParams] = useSearchParams();
+  const returnUrl = searchParams.get("returnUrl") || "/dictionary";
+  console.log("🚀 ~ PublicRoute ~ returnUrl:", returnUrl)
 
-  if (isRefreshing) return null;
+  if (isRefreshing) return <Loader />;
 
-  return isLoggedIn ? <Navigate to="/dictionary" replace /> : <Outlet />;
+  return isLoggedIn ? <Navigate to={returnUrl} replace /> : <Outlet />;
 }

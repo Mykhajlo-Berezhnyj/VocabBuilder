@@ -1,5 +1,6 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import type { ModalState, ModalType, PayloadType } from "./types";
+import type { ModalState, ModalType } from "./types";
+import type { UserWordResponse } from "../userDictionary/types";
 
 const initialState: ModalState = {
   isOpen: false,
@@ -11,7 +12,7 @@ const modalSlice = createSlice({
   name: "modal",
   initialState,
   reducers: {
-    openModal(state, action: PayloadAction<{type:ModalType, payload?: PayloadType}>) {
+    openModal(state, action: PayloadAction<{type:ModalType, payload?: UserWordResponse}>) {
       state.isOpen = true;
       state.type = action.payload.type;
       state.payload=action.payload.payload ?? null;

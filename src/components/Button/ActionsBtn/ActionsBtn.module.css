@@ -6,9 +6,31 @@
   text-align: center;
   align-items: center;
 
-  @media(min-width: 768px) {
+  @media (min-width: 768px) {
     width: 14px;
     height: 25px;
     margin: 0 auto;
   }
+}
+
+.labelWrap {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  height: 24px;
+ 
+
+  &:hover {
+    color: var(--color-primary);
+
+    .iconMenu {
+      color: var(--color-primary);
+    }
+  }
+}
+
+.iconMenu {
+  width: 16px;
+  height: 16px;
+  color: rgba(var(--rgb-color-font-primary), 0.5);
 }

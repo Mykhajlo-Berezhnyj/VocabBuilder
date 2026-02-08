@@ -2,14 +2,18 @@ import clsx from "clsx";
 import css from "./UserNav.module.css";
 import { NavLink } from "react-router-dom";
 import ButtonLogout from "../Button/ButtonLogout/ButtonLogout";
-import { isDestkop } from "../AppBar/AppBar";
 
 type UserNavProps = {
   className?: string;
   onCloseMenu?: () => void;
+  handleLogout: ()=>void;
 };
 
-export default function UserNav({ className, onCloseMenu }: UserNavProps) {
+export default function UserNav({
+  className,
+  onCloseMenu = () => {},
+  handleLogout,
+}: UserNavProps) {
   const getActiveLinkClass = ({ isActive }: { isActive: boolean }) => {
     return clsx(css.link, isActive && css.active);
   };
@@ -47,7 +51,7 @@ export default function UserNav({ className, onCloseMenu }: UserNavProps) {
             Training
           </NavLink>
         </li>
-        <ButtonLogout className={css.btnLogout} />
+        <ButtonLogout onClick={handleLogout} className={css.btnLogout} />
       </ul>
     </nav>
   );

@@ -3,6 +3,10 @@
   color: var(--color-font-secondary);
   width: 100%;
   border-radius: var(--border-radius);
+  background-image: url("../image/book.svg");
+  background-repeat: no-repeat;
+  background-position: right 12px bottom 44px;
+  background-size: 152px 121px;
 
   @media (min-width: 375px) {
     width: 343px;
@@ -10,6 +14,8 @@
 
   @media (min-width: 768px) {
     width: 528px;
+    background-size: 212px 179px;
+    background-position: right 6px bottom 21px;
   }
 }
 

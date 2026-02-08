@@ -5,12 +5,12 @@
   line-height: var(--lh-primary);
   font-size: var(--fs-big);
   color: var(--color-font-primary);
-  margin: 16px auto 0 16px;
+  padding: 16px 16px 0 16px;
 
   @media (min-width: 768px) {
     line-height: 32px;
     font-size: 22px;
-    margin: 24px auto 0 32px;
+    margin: 24px 24px 0 32px;
   }
 }
 

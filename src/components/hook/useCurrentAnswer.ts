@@ -10,8 +10,10 @@ import {
 } from "../../redux/tasks/selector";
 import toast from "react-hot-toast";
 import { useState } from "react";
-import axios, { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { getErrorMessage } from "../utils/getErrorMessage";
+import type { AnswerResponse } from "../../redux/tasks/type";
 
 type UseCurrentAnswerProps = {
   reset: () => void;
@@ -21,7 +23,7 @@ type UseCurrentAnswerProps = {
 export function useCurrentAnswer({ reset }: UseCurrentAnswerProps) {
   const dispatch = useDispatch<AppDispatch>();
   const [isOpen, setIsOpen] = useState(false);
-  const [result, setResult] = useState(null);
+  const [result, setResult] = useState<AnswerResponse[]>([]);
   const tasks = useSelector(selectTasks);
   const currentIndex = useSelector(selectCurrentIndex);
   const answers = useSelector(selectAnswers);
@@ -66,13 +68,14 @@ export function useCurrentAnswer({ reset }: UseCurrentAnswerProps) {
       console.log("🚀 ~ handleAnswer ~ result:", result);
       setIsOpen(true);
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        toast.error(error.response?.data?.message ?? error.message);
-      } else if (error instanceof Error) {
-        toast.error(error.message);
-      } else {
-        toast.error("Unexpected error");
-      }
+      toast.error(getErrorMessage(error).message);
+      // if (axios.isAxiosError(error)) {
+      //   toast.error(error.response?.data?.message ?? error.message);
+      // } else if (error instanceof Error) {
+      //   toast.error(error.message);
+      // } else {
+      //   toast.error("Unexpected error");
+      // }
       // navigate("/dictionary");
     }
   };

@@ -4,12 +4,13 @@ import { getVisiblePages } from "../utils/getVisiblePages";
 import clsx from "clsx";
 import css from "./Pagination.module.css";
 import Icon from "../Icon/Icon";
+import useWindowWidth from "../hook/useWindowWidth";
 
 type PaginationProps = {
   className?: string;
   page: number;
   totalPages: number;
-  changePage: (page: number)=>void;
+  changePage: (page: number) => void;
 };
 
 export default function Pagination({
@@ -18,8 +19,12 @@ export default function Pagination({
   totalPages,
   changePage,
 }: PaginationProps) {
+  const width = useWindowWidth();
+  console.log("🚀 ~ Pagination ~ width:", width);
 
-  const pages = getVisiblePages({ current: page, totalPages: totalPages });
+  if (!totalPages || totalPages <= 1) return null;
+
+  const pages = getVisiblePages({ current: page, totalPages: totalPages, width: width });
 
   return (
     <nav className={clsx(css.nav, className)}>

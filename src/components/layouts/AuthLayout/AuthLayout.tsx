@@ -10,7 +10,7 @@ export default function AuthLayout({ className }: AuthLayoutProps) {
   return (
     <>
       <Logo className={css.logo} />
-      <main className="css.main">
+      <main className={css.main}>
         <Outlet />
       </main>
     </>

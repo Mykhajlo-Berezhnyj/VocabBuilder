@@ -49,16 +49,19 @@ form .wordWrap {
 }
 
 .inputWrap input {
-  padding: 12px 24px;
-  border-radius: var(--border-radius);
-  border: 1px solid #d1d5db;
-  background-color: transparent;
-  color: var(--color-font-secondary)
+  border: 1px solid rgba(var(--rgb-color-font-secondery), 0.3);
+  color: var(--color-font-secondary);
 }
 
 .btnWrap {
   display: flex;
   gap: 8px;
+  font-weight: var(--fe-bold);
+
+  @media (min-width: 768px) {
+    font-size: var(--fs-big);
+    line-height: 28px;
+  }
 }
 
 .btnSave {
@@ -68,6 +71,10 @@ form .wordWrap {
   background-color: var(--color-font-secondary);
   line-height: 1.5;
   font-weight: var(--fw-bold);
+
+  &:hover {
+    color: var(--color-primary);
+  }
 }
 
 .btnCancel {
@@ -76,6 +83,11 @@ form .wordWrap {
   border-radius: 30px;
   background-color: transparent;
   border: 1px solid rgba(var(--rgb-color-font-secondery), 0.4);
+
+  &:hover {
+    background-color: var(--color-font-secondary);
+    color: var(--color-font-primary);
+  }
 }
 
 .formHeader {

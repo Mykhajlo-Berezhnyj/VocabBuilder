@@ -1,36 +1,135 @@
 .sectionNotWord {
   padding: 93.19px 0 76px;
+
+  @media (min-width: 768px) {
+    padding: 177.05px 0 227px;
+  }
+
+  @media (min-width: 1440px) {
+    padding: 193px 269px 230px;
+  }
 }
 
 .notWordContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  gap: 50.81px;
+
+  @media (min-width: 768px) {
+    padding: 0 93px 0 94px;
+  }
+
+  @media (min-width: 1440px) {
+    padding: 17.5px 0 17.5px 86px;
+    flex-direction: row;
+    gap: 32px;
+  }
 }
 
 .img {
   margin-right: 1.34px;
   rotate: 18deg;
+
+  @media (min-width: 1440px) {
+    width: 205px;
+    height: 230px;
+  }
+
+  @media (min-width: 1440px) {
+    order: 2;
+    width: 203px;
+    height: 230px;
+  }
 }
 
 .notWordWrap {
   display: flex;
   flex-direction: column;
-  gap: 16px;
   width: 100%;
-  margin-top: 50.81px;
-  margin-bottom: 132px;
+  gap: 132px;
+
+  @media (min-width: 768px) {
+    font-size: var(--fs-base);
+    width: 581px;
+    gap: 64px;
+  }
+
+  @media (min-width: 1440px) {
+    margin: 0;
+  }
 }
 
-.notWordTitle {
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+
+  @media (min-width: 768px) {
+    font-size: var(--fs-base);
+    width: 581px;
+    gap: 32px;
+  }
+
+  @media (min-width: 1440px) {
+    margin: 0;
+  }
+}
+
+.headerTitle {
   font-size: var(--fs-base);
   font-weight: var(--fw-medium);
   line-height: var(--lh-base);
+
+  @media (min-width: 768px) {
+    font-size: 20px;
+    height: 30px;
+  }
 }
 
-.notWordText {
+.headerText {
   font-size: var(--fs-small);
   font-weight: var(--fw-regular);
-  height: 76px;
   line-height: normal;
+  width: 100%;
+
+  @media (min-width: 375px) {
+    height: 76px;
+  }
+
+  @media (min-width: 768px) {
+    font-size: var(--fs-base);
+    height: 72px;
+    width: 581px;
+  }
+}
+
+.actionBlock {
+  display: flex;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    width: 428px;
+    height: 56px;
+    gap: 10px;
+    align-self: flex-start;
+  }
+}
+
+@media (min-width: 768px) {
+  .actionBlock button {
+    width: 215px;
+  }
+
+  .actionBlock a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 203px;
+    height: 56px;
+    border: 1px solid var(--color-primary);
+    border-radius: var(--border-big-radius);
+  }
 }

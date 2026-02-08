@@ -46,7 +46,7 @@
   --color-secondary-rgb: 165, 192, 184;
   --color-error: #d80027;
   --color-valid: #3cbf61;
-  --color-progress: #2BD627;
+  --color-progress: #2bd627;
   --color-not-progress: #d4f8d3;
   --border-input: #1214171a;
   --link-animation-color: linear-gradient(
@@ -160,22 +160,15 @@ button {
   outline: none;
   transition: border-color 0.25s;
 }
-/* button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-} */
 
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #ffffff;
   }
-  a:hover {
+  /* a:hover {
     color: #747bff;
-  }
+  } */
   button {
     background-color: #f9f9f9;
   }
@@ -192,3 +185,10 @@ h1 {
     line-height: 48px;
   }
 }
+
+/* button,
+input,
+select,
+textarea {
+  font: inherit;
+} */

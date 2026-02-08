@@ -1,11 +1,11 @@
 .en {
   /* padding: 16px 4px 16px 4px; */
-  width: 100%;
+  width: 28%;
   text-wrap: wrap;
 
   @media (min-width: 375px) {
     padding: 16px 10px 16px 14px;
-    width: 82px;
+    min-width: 82px;
   }
 
   @media (min-width: 768px) {
@@ -21,12 +21,12 @@
 
 .ua {
   /* /padding: 16px 8px 16px 6px; */
-  width: 100%;
+  width: 39.6%;
   text-wrap: wrap;
 
   @media (min-width: 375px) {
     padding: 16px 16px 16px 14px;
-    width: 116px;
+    min-width: 116px;
   }
 
   @media (min-width: 768px) {
@@ -45,7 +45,7 @@
 
   @media (min-width: 375px) {
     padding: 16px 14px;
-    width: 151px;
+    min-width: 151px;
   }
 
   @media (min-width: 768px) {
@@ -60,11 +60,12 @@
 }
 
 .progress {
-  width: 68px;
+  min-width: 68px;
+  width: 32.4%;
 
   @media (min-width: 375px) {
     padding: 16px 14px;
-    width: 95px;
+    min-width: 95px;
   }
 
   @media (min-width: 768px) {

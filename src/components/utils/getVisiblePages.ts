@@ -1,6 +1,7 @@
 type getVisiblePagesProps = {
   current: number;
   totalPages: number;
+  width: number;
 };
 
 type Page = number | "...";
@@ -8,29 +9,59 @@ type Page = number | "...";
 export function getVisiblePages({
   current,
   totalPages,
+  width,
 }: getVisiblePagesProps): Page[] {
-  const pages: Page[] = [];
+  let pages: Page[] = [];
 
-  if (totalPages < 5)
-    return Array.from({ length: totalPages }, (_, i) => i + 1);
+  if (!totalPages || totalPages <= 0) return pages;
 
-  const isNotMobile = window.matchMedia("(min-width: 768px)").matches;
+  if (totalPages < 5) {
+    pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+    console.log("🚀 ~ getVisiblePages ~ pages:", pages);
+    return pages;
+  }
 
-  if (!isNotMobile) {
-    pages.push(1, 2);
+  if (width < 768) {
+    pages.push(1);
 
-    if (current <= 3 || current === totalPages) {
-      pages.push(3);
-      pages.push("...");
+    if (width >= 460) {
+      if (current > 3) {
+        pages.push("...");
+      }
+
+      if (current >= 3) {
+        pages.push(current - 1);
+      }
+
+      if (current >= 2 && current !== totalPages) {
+        pages.push(current);
+      }
+
+      if (current < totalPages - 1) {
+        pages.push(current + 1);
+      }
+
+      if (current < totalPages - 2) {
+        pages.push("...");
+      }
     } else {
-      pages.push("...");
-      pages.push(current);
+      if (current > 2) {
+        pages.push("...");
+      }
+      if (current !== totalPages) {
+        pages.push(current);
+      }
+
+      if (current < totalPages - 1) {
+        pages.push("...");
+      }
     }
 
     pages.push(totalPages);
 
     return pages;
   }
+
   pages.push(1, 2, 3);
 
   if (current > 5) {

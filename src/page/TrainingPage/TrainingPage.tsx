@@ -12,13 +12,11 @@ export default function TrainingPage() {
   const dispatch = useDispatch<AppDispatch>();
   const tasks = useSelector(selectTasks);
   const current = useSelector(selectCurrentIndex);
-  const progress = Math.round((current / tasks.length) * 100);
-
-
+  const progress = Math.round(((current+1) / tasks.length) * 100);
 
   useEffect(() => {
     dispatch(fetchTasks());
-  }, []);
+  }, [dispatch]);
 
   return (
     <main className={css.main}>

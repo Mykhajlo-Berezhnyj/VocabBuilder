@@ -5,15 +5,17 @@
   align-items: center;
   gap: 8px;
   width: 100%;
-  /* align-self: center; */
+  font-weight: var(--fw-bold);
 
-  @media (min-width: 768px) {
+  @media (min-width: 375px) {
     width: 343px;
   }
 
   @media (min-width: 768px) {
     width: 500px;
-    height: 60px;
+    height: 100px;
+    font-size: var(--fs-big);
+    line-height: 28px;
   }
 }
 

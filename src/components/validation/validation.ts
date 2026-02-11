@@ -7,7 +7,7 @@ const baseSchema = yup.object().shape({
     .required("Email is required"),
 });
 
-function passwordTestMessage(value: unknown, ctx: yup.TestContext) {
+export function passwordTestMessage(value: unknown, ctx: yup.TestContext) {
   const v = String(value ?? "");
 
   if (v.length < 7) {

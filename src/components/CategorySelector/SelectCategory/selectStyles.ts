@@ -1,5 +1,10 @@
-export const customSelectStyles = (isFilter: boolean) => ({
-  control: (base) => ({
+import type { CSSObjectWithLabel, GroupBase, StylesConfig } from "react-select";
+import type { Option } from "./SelectCategory";
+
+export const customSelectStyles = (
+  isFilter: boolean,
+): StylesConfig<Option, false, GroupBase<Option>> => ({
+  control: (base: CSSObjectWithLabel) => ({
     ...base,
     backgroundColor: isFilter ? "var(--color-header)" : "var(--color-primary)",
     // border: "1 solid rgba(var(--rgb-color-font-primary), 0.1)",
@@ -25,7 +30,9 @@ export const customSelectStyles = (isFilter: boolean) => ({
   placeholder: (base, state) => ({
     ...base,
     margin: 0,
-    color: state.selectProps.error ? "red" : "var(--font-main)",
+    color: (state.selectProps as { error?: boolean }).error
+      ? "red"
+      : "var(--font-main)",
   }),
   singleValue: (base) => ({
     ...base,
@@ -64,7 +71,8 @@ export const customSelectStyles = (isFilter: boolean) => ({
     color: isFilter
       ? "var(--color-font-primary)"
       : "var(--color-font-secondary)",
-    ":hover": { opacity: 0.5
+    ":hover": {
+      opacity: 0.5,
       // color: isFilter
       //   ? "var(--color-font-secondary)"
       //   : "var(--color-font-primary)",

@@ -1,6 +1,7 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Answer, TasksState } from "./type";
 import { fetchTasks, postAnswers } from "./operations";
+import type { RejectError } from "../../components/utils/getErrorMessage";
 
 const handlePending = (state: TasksState) => {
   state.isLoading = true;
@@ -9,10 +10,10 @@ const handlePending = (state: TasksState) => {
 
 const handleRejected = (
   state: TasksState,
-  action: PayloadAction<string | undefined>
+  action: PayloadAction<RejectError | undefined>
 ) => {
   state.isLoading = false;
-  state.error = (action.payload as string) ?? "Unknown error";
+  state.error = action.payload?.message ?? "Unknown error";
 };
 
 const initialState: TasksState = {

@@ -7,9 +7,9 @@ import { useMemo } from "react";
 import type { UserWordResponse } from "../../../../redux/userDictionary/types";
 import LanguageTitle from "../LanguageTitle/LanguageTitle";
 
-export function useBaseColumns(
+export function useBaseColumns<Tword>(
   css: CSSModuleClasses,
-): ColumnDef<UserWordResponse>[] {
+): ColumnDef<Tword>[] {
   return useMemo(
     () => [
       {
@@ -33,9 +33,10 @@ export function useBaseColumns(
 
 export function useDictionaryColumns(
   handleClick: (editingWord: UserWordResponse) => void,
+  handleDelete: (id: string) => void,
 ) {
   const isMobile = useMediaQuery("(max-width: 767px)");
-  const base = useBaseColumns(css);
+  const base = useBaseColumns<UserWordResponse>(css);
 
   return useMemo<ColumnDef<UserWordResponse>[]>(
     () => [
@@ -66,10 +67,16 @@ export function useDictionaryColumns(
         meta: { className: css.actions },
         cell: ({ row }) => {
           const editingWord = row.original;
-          return <ActionsBtn editingWord={editingWord} onEdit={handleClick} />;
+          return (
+            <ActionsBtn
+              editingWord={editingWord}
+              onEdit={handleClick}
+              onDelete={handleDelete}
+            />
+          );
         },
       },
     ],
-    [base, isMobile, handleClick],
+    [base, isMobile, handleClick, handleDelete],
   );
 }

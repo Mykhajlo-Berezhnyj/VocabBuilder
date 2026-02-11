@@ -1,4 +1,5 @@
-import type { Category } from "../filters/types";
+import type { RejectError } from "../../components/utils/getErrorMessage";
+import type { CategoryNotVerb } from "../filters/types";
 
 export interface DictionaryState {
   words: Word[];
@@ -6,16 +7,24 @@ export interface DictionaryState {
   page: number;
   perPage: number;
   isLoading: boolean;
-  error: string | null;
+  error: RejectError | null;
 }
-
-export interface Word {
-  _id?: string;
+type WordVerb = {
+  _id: string;
   en: string;
   ua: string;
-  category: Category;
-  isIrregular?: boolean;
-}
+  category: "verb";
+  isIrregular: boolean;
+};
+
+type WordNotVerb = {
+  _id: string;
+  en: string;
+  ua: string;
+  category: CategoryNotVerb;
+};
+
+export type Word = WordVerb | WordNotVerb;
 
 export interface ApiFilterResponse {
   results: Word[];

@@ -9,10 +9,7 @@ import { type AppDispatch } from "./redux/store";
 import { fetchStatistics } from "./redux/userDictionary/operations";
 import { refreshUser } from "./redux/auth/operations";
 import { fetchCategories } from "./redux/filters/operations";
-import {
-  selectIsLoggedIn,
-  selectToken,
-} from "./redux/auth/selectors";
+import { selectIsLoggedIn, selectToken } from "./redux/auth/selectors";
 import { resetState } from "./redux/userDictionary/slice";
 import { closeModal } from "./redux/modal/slice";
 import {
@@ -24,8 +21,10 @@ import Modal from "./components/Modal/Modal";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import PublicRoute from "./components/PublicRoute/PublicRoute";
 import HomePage from "./page/HomePage/HomePage";
-import ModalContent from "./components/Modal/ModalContent/ModalContent";
 import Loader from "./components/Loader/Loader";
+import AddWordForm from "./components/form/AddWordForm/AddWordForm";
+import EditWordForm from "./components/form/EditWordForm/EditWord";
+import NotFoundPage from "./page/NotFoundPage/NotFoundPage";
 
 const DictionaryPage = lazy(
   () => import("./page/DictionaryPage/DictionaryPage"),
@@ -69,7 +68,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route element={<PublicRoute />}>
-            <Route element={<AuthLayout className="headerAuth" />}>
+            <Route element={<AuthLayout />}>
               <Route path="/register" element={<RegisterPage />} />
               <Route path="/login" element={<LoginPage />} />
             </Route>
@@ -81,6 +80,7 @@ function App() {
               <Route path="/training" element={<TrainingPage />} />
             </Route>
           </Route>
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Suspense>
       <Toaster
@@ -113,12 +113,15 @@ function App() {
           isOpen={isOpen}
           onClose={handleClose}
           children={
-            <ModalContent
-              type={type}
-              editingWord={editingWord}
-              onClose={handleClose}
-              className="form"
-            />
+            type === "editWord" && editingWord ? (
+              <EditWordForm
+                className="form"
+                editingWord={editingWord}
+                onClose={handleClose}
+              />
+            ) : (
+              <AddWordForm className="form" onClose={handleClose} />
+            )
           }
         />
       )}

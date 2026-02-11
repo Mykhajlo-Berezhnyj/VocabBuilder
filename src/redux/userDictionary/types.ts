@@ -1,26 +1,30 @@
 import type { RejectError } from "../../components/utils/getErrorMessage";
-import type { Category } from "../filters/types";
+import type { CategoryNotVerb } from "../filters/types";
 
-export interface UserWord {
+type UserWordBase = {
   en: string;
   ua: string;
-  category: Category;
-  isIrregular?: boolean;
-}
+};
 
-export interface UserWordResponse {
+type UserWordVerb = UserWordBase & {
+  category: "verb";
+  isIrregular: boolean;
+};
+
+type UserWordNotVerb = UserWordBase & {
+  category: CategoryNotVerb;
+};
+
+export type UserWord = UserWordNotVerb | UserWordVerb;
+
+export type UserWordResponse = UserWord & {
   _id: string;
-  en: string;
-  ua: string;
-  category: Category;
-  isIrregular?: boolean;
   owner: string;
   progress: number;
-}
+};
 
 export interface UserDictionaryState {
   words: UserWordResponse[];
-  // editingWord: UserWordResponse | null;
   totalPages: number;
   page: number;
   perPage: number;

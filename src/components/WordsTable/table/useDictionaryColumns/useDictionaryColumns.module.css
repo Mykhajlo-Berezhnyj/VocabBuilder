@@ -5,7 +5,7 @@
 
   @media (min-width: 375px) {
     padding: 16px 10px 16px 14px;
-    min-width: 82px;
+    width: 82px;
   }
 
   @media (min-width: 768px) {
@@ -26,7 +26,7 @@
 
   @media (min-width: 375px) {
     padding: 16px 16px 16px 14px;
-    min-width: 116px;
+    width: 116px;
   }
 
   @media (min-width: 768px) {
@@ -45,7 +45,7 @@
 
   @media (min-width: 375px) {
     padding: 16px 14px;
-    min-width: 151px;
+    width: 151px;
   }
 
   @media (min-width: 768px) {
@@ -65,7 +65,7 @@
 
   @media (min-width: 375px) {
     padding: 16px 14px;
-    min-width: 95px;
+    width: 95px;
   }
 
   @media (min-width: 768px) {

@@ -1,7 +1,37 @@
 .headerForm {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
   font-weight: var(--fw-regular);
   line-height: 1.5;
   color: var(--color-font-secondary);
+
+  @media (min-width: 768px) {
+    gap: 32px;
+  }
+}
+
+.headerWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  @media (min-width: 768px) {
+    gap: 20px;
+    font-size: 20px;
+  }
+}
+
+.titleHeader {
+  font-size: 24px;
+  font-weight: var(--fw-semibold);
+  height: 28px;
+  letter-spacing: -0.02em;
+
+  @media (min-width: 768px) {
+    font-size: 40px;
+    height: 48px;
+  }
 }
 
 .filterCategory {
@@ -12,6 +42,8 @@
 
   @media (min-width: 768px) {
     width: 204px;
+    height: 80px;
+    margin-bottom: 6px;
   }
 }
 
@@ -30,6 +62,11 @@
 .radioGroup {
   display: flex;
   gap: 16px;
+
+  @media (min-width: 768px) {
+    width: 202px;
+    height: 24px;
+  }
 }
 
 .radioGroup svg use {

@@ -3,23 +3,20 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import css from "./ActionsBtn.module.css";
 import React from "react";
-import { useDispatch } from "react-redux";
-import type { AppDispatch } from "../../../redux/store";
-import { deleteWord } from "../../../redux/userDictionary/operations";
 import Button from "../Button";
 import type { UserWordResponse } from "../../../redux/userDictionary/types";
-import toast from "react-hot-toast";
 import Icon from "../../Icon/Icon";
 
 type ActionsBtnProps = {
   editingWord: UserWordResponse;
   onEdit: (editingWord: UserWordResponse) => void;
+  onDelete: (id: string) => void;
 };
-export default function ActionsBtn({ editingWord, onEdit }: ActionsBtnProps) {
+
+export default function ActionsBtn({ editingWord, onEdit, onDelete }: ActionsBtnProps) {
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
     null,
   );
-  const dispatch = useDispatch<AppDispatch>();
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -70,14 +67,12 @@ export default function ActionsBtn({ editingWord, onEdit }: ActionsBtnProps) {
           }}
         >
           <span className={css.labelWrap}>
-            {" "}
             <Icon iconName="edit" className={css.iconMenu} /> Edit
           </span>
         </MenuItem>
         <MenuItem
           onClick={() => {
-            dispatch(deleteWord(editingWord._id));
-            toast.success("Word delete from dictionary");
+            onDelete(editingWord._id);
             handleClose();
           }}
         >

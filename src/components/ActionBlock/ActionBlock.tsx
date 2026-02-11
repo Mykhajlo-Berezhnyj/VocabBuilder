@@ -3,7 +3,7 @@ import Button from "../Button/Button";
 import css from "./ActionBlock.module.css";
 import clsx from "clsx";
 
-type ActionBlockProps = {
+type ActionBlockBaseProps = {
   className?: string;
   classNameBtn?: string;
   btnName: string;
@@ -11,11 +11,22 @@ type ActionBlockProps = {
   btnOnClick?: () => void;
   disabled?: boolean;
   classNameLink?: string;
-  linkHref: string;
+  linkHref?: string;
   linkText: string;
+  linkOnClick?: () => void;
+};
+
+type ActionBlockLinkProps = ActionBlockBaseProps & {
   linkOnClick?: () => void;
   state?: { openAddModal: boolean };
 };
+
+type ActionBlockButtonProps = ActionBlockBaseProps & {
+  linkOnClick: () => void;
+  state?: undefined;
+};
+
+type ActionBlockProps = ActionBlockLinkProps | ActionBlockButtonProps;
 
 export default function ActionBlock({
   className,
@@ -41,14 +52,20 @@ export default function ActionBlock({
       >
         {btnName}
       </Button>
-      <Link
-        to={linkHref}
-        className={clsx(css.link, classNameLink)}
-        onClick={linkOnClick}
-        state={state}
-      >
-        {linkText}
-      </Link>
+      {linkHref ? (
+        <Link
+          to={linkHref}
+          className={clsx(css.link, classNameLink)}
+          onClick={linkOnClick}
+          state={state}
+        >
+          {linkText}
+        </Link>
+      ) : (
+        <Button className={clsx(css.link, classNameLink)} onClick={linkOnClick}>
+          {linkText}
+        </Button>
+      )}
     </div>
   );
 }

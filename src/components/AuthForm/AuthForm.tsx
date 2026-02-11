@@ -1,10 +1,9 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import css from "./AuthForm.module.css";
 import clsx from "clsx";
 import InputField from "../InputField/InputField";
 import InputFieldPassword from "../InputFieldPassword/InputFieldPassword";
 import { useForm, type FieldErrors } from "react-hook-form";
-import Button from "../Button/Button";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { registration, login } from "../../redux/auth/operations";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,11 +15,9 @@ import {
 } from "../validation/validation";
 import { type AppDispatch } from "../../redux/store";
 import toast from "react-hot-toast";
-import { isAxiosError } from "axios";
 import { selectExistingEmail } from "../../redux/auth/selectors";
 import { addExistingEmail, clearExistingEmail } from "../../redux/auth/slice";
 import ActionBlock from "../ActionBlock/ActionBlock";
-import { object } from "yup";
 
 interface AuthFormProps {
   className?: string;
@@ -51,12 +48,21 @@ export default function AuthForm({ className, isRegisterPage }: AuthFormProps) {
   const onSubmit = async (data: FormData) => {
     try {
       if (isRegisterPage) {
-        const regData = data as RegistrationData;
+        const regData = {
+          ...(data as RegistrationData),
+          name: (data as RegistrationData).name.trim(),
+          email: data.email.trim().toLowerCase(),
+          password: data.password.trim(),
+        };
         await dispatch(registration(regData)).unwrap();
         toast.success("Registration successful!");
         dispatch(clearExistingEmail());
       } else {
-        const loginData = data as LoginData;
+        const loginData =  {
+          ...(data as LoginData),
+          email: data.email.trim().toLowerCase(),
+          password: data.password.trim(),
+        };
         await dispatch(login(loginData)).unwrap();
         toast.success("Login successful!");
         dispatch(clearExistingEmail());
@@ -72,27 +78,18 @@ export default function AuthForm({ className, isRegisterPage }: AuthFormProps) {
       ) {
         dispatch(addExistingEmail(data.email));
         navigate("/login");
-       toast("This email already exists. Please enter password to log in.", {
-      icon: "ℹ️",
-    });
-     //   } else {
-        //     toast.error(
-        //       `Axios error: ${error.response?.data?.message ?? error.message}`
-        //     );
-        //   }
-        //   return;
-        // }
+        toast("This email already exists. Please enter password to log in.", {
+          icon: "ℹ️",
+        });
       }
-      // if (error instanceof Error) {
-      //   toast.error(error.message);
-      // } else {
-      //   toast.error(error);
-      // }
     }
   };
 
   return (
-    <form className={clsx(css.authForm, className)} onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className={clsx(css.authForm, className)}
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <div
         className={clsx(css.titleBlock, !isRegisterPage && css.titleBlockLogin)}
       >
@@ -141,7 +138,8 @@ export default function AuthForm({ className, isRegisterPage }: AuthFormProps) {
           className={css.inputWrap}
         />
       </div>
-      <ActionBlock className={css.btnWrap}
+      <ActionBlock
+        className={css.btnWrap}
         btnName={isRegisterPage ? "Register" : "Login"}
         type="submit"
         classNameBtn={css.btnLogin}

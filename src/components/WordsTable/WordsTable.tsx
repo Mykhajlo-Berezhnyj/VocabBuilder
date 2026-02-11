@@ -6,19 +6,19 @@ import {
 } from "@tanstack/react-table";
 import Container from "../Container/Container";
 import css from "./WordsTable.module.css";
-import type { UserWordResponse } from "../../redux/userDictionary/types";
 
-type WordsTableProps = {
-  data: UserWordResponse[];
+type WordsTableProps<TData> = {
+  data: TData[];
   className?: string;
-  columns: ColumnDef<UserWordResponse>[];
+  columns: ColumnDef<TData>[];
 };
 
-export default function WordsTable({
+export default function WordsTable<TData>({
   data,
   className,
   columns,
-}: WordsTableProps) {
+}: WordsTableProps<TData>) {
+  // eslint-disable-next-line react-hooks/incompatible-library
   const table = useReactTable({
     data,
     columns,

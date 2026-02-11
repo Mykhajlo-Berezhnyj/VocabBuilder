@@ -1,11 +1,11 @@
 import { useSelector } from "react-redux";
-import { selectOptions } from "../../../redux/filters/selectors";
+import { selectOptions } from "../../../../redux/filters/selectors";
 import css from "./AddWordHeader.module.css";
 import SelectCategory, {
   type Option,
-} from "../../CategorySelector/SelectCategory/SelectCategory";
+} from "../../../CategorySelector/SelectCategory/SelectCategory";
 import { Controller, useFormContext, type FieldError } from "react-hook-form";
-import VerbTypeRadio from "../../CategorySelector/VerbTypeRadio/VerbTypeRadio";
+import VerbTypeRadio from "../../../CategorySelector/VerbTypeRadio/VerbTypeRadio";
 import { useEffect } from "react";
 import clsx from "clsx";
 
@@ -39,13 +39,15 @@ export default function AddWordHeader({ className }: AddWordHeaderProps) {
   }, [category, trigger, setValue]);
 
   return (
-    <header className={clsx(css.headerForm, className)}>
-      <h2 className={css.titleHeader}>Add word</h2>
-      <p className={css.textHeader}>
-        Adding a new word to the dictionary is an important step in enriching
-        the language base and expanding the vocabulary.
-      </p>
-      <div className={css.filterCategory} >
+    <div className={clsx(css.headerForm, className)} >
+      <header className={css.headerWrap}>
+        <h2 className={css.titleHeader}>Add word</h2>
+        <p className={css.textHeader}>
+          Adding a new word to the dictionary is an important step in enriching
+          the language base and expanding the vocabulary.
+        </p>
+      </header>
+      <div className={css.filterCategory}>
         <Controller
           name="category"
           control={control}
@@ -111,6 +113,6 @@ export default function AddWordHeader({ className }: AddWordHeaderProps) {
           />
         )}
       </div>
-    </header>
+    </div>
   );
 }

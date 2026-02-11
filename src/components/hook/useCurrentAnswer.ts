@@ -65,18 +65,11 @@ export function useCurrentAnswer({ reset }: UseCurrentAnswerProps) {
     try {
       const res = await axios.post("words/answers", [...answers, answer]);
       setResult(res.data);
-      console.log("🚀 ~ handleAnswer ~ result:", result);
       setIsOpen(true);
     } catch (error) {
-      toast.error(getErrorMessage(error).message);
-      // if (axios.isAxiosError(error)) {
-      //   toast.error(error.response?.data?.message ?? error.message);
-      // } else if (error instanceof Error) {
-      //   toast.error(error.message);
-      // } else {
-      //   toast.error("Unexpected error");
-      // }
-      // navigate("/dictionary");
+      const { message } = getErrorMessage(error);
+      toast.error(message);
+      navigate("/dictionary");
     }
   };
 

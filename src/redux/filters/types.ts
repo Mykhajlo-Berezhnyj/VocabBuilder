@@ -15,13 +15,15 @@ export type BaseFilter = {
   keyword: string;
 };
 
+export type CategoryNotVerb = Exclude<Category, "verb">;
+
 export type VerbFilter = BaseFilter & {
   category: "verb";
   isIrregular: boolean;
 };
 
 export type NonVerbFilter = BaseFilter & {
-  category: Exclude<Category, "verb"> | null;
+  category: CategoryNotVerb | null;
   isIrregular?: never;
 };
 

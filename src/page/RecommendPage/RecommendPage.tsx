@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch } from "../../redux/store";
 import { selectSelectedFilters } from "../../redux/filters/selectors";
 import {
+  selectError,
+  selectIsLoading,
   selectPage,
   selectPerPage,
   selectTotalPages,
@@ -16,7 +18,9 @@ import Pagination from "../../components/Pagination/Pagination";
 import { changePage } from "../../redux/dictionary/slice";
 import { useRecommendColumns } from "../../components/WordsTable/table/useRecommendColumns.tsx/useRecommendColumns";
 import { addUserWord } from "../../redux/userDictionary/operations";
-import type { UserWordResponse } from "../../redux/userDictionary/types";
+import type { Word } from "../../redux/dictionary/types";
+import toast from "react-hot-toast";
+import Loader from "../../components/Loader/Loader";
 
 export default function RecommendPage() {
   const dispatch = useDispatch<AppDispatch>();
@@ -25,11 +29,15 @@ export default function RecommendPage() {
   const totalPages = useSelector(selectTotalPages);
   const perPage = useSelector(selectPerPage);
   const words = useSelector(selectWords);
-    const handleClick = (id: UserWordResponse["_id"]) => {
-      dispatch(addUserWord(id));
-    };
-  
-    const columns = useRecommendColumns(handleClick);
+  const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
+
+  const handleClick = async (id: Word["_id"]) => {
+    await dispatch(addUserWord(id)).unwrap();
+    toast.success("Word add to dictionary");
+  };
+
+  const columns = useRecommendColumns(handleClick);
 
   useEffect(() => {
     // if (filters.category === "verb" && filters.isIrregular === null) return;
@@ -40,13 +48,24 @@ export default function RecommendPage() {
   return (
     <main>
       <Dashboard className={css.dashboard} />
-      <WordsTable data={words} columns={columns} className={css.tableRecomend} />
-      <Pagination
-        className={css.pagination}
-        page={page}
-        totalPages={totalPages}
-        changePage={(newPage) => dispatch(changePage(newPage))}
-      />
+      {error && <p>{error.message}</p>}
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <>
+          <WordsTable<Word>
+            data={words}
+            columns={columns}
+            className={css.tableRecomend}
+          />
+          <Pagination
+            className={css.pagination}
+            page={page}
+            totalPages={totalPages}
+            changePage={(newPage) => dispatch(changePage(newPage))}
+          />
+        </>
+      )}
     </main>
   );
 }

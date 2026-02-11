@@ -20,7 +20,6 @@ export default function Pagination({
   changePage,
 }: PaginationProps) {
   const width = useWindowWidth();
-  console.log("🚀 ~ Pagination ~ width:", width);
 
   if (!totalPages || totalPages <= 1) return null;
 

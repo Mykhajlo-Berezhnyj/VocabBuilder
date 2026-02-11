@@ -29,8 +29,8 @@ export default function AppBar({ className }: AppBarProps) {
     }
   }, [isDestkop]);
 
-  const handleLogout = () => {
-    dispatch(logout());
+  const handleLogout = async() => {
+   await dispatch(logout()).unwrap();
     navigate("/login");
     toast.success("User logout successes");
   };

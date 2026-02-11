@@ -2,11 +2,7 @@ import { Outlet } from "react-router-dom";
 import Logo from "../../Logo/Logo";
 import css from "./AuthLayout.module.css";
 
-type AuthLayoutProps = {
-  className?: string;
-};
-
-export default function AuthLayout({ className }: AuthLayoutProps) {
+export default function AuthLayout() {
   return (
     <>
       <Logo className={css.logo} />

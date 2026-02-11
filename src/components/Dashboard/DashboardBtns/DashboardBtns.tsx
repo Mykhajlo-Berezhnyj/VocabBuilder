@@ -2,12 +2,10 @@ import { NavLink } from "react-router-dom";
 import Button from "../../Button/Button";
 import Icon from "../../Icon/Icon";
 import css from "./DashboardBtns.module.css";
-import Modal from "../../Modal/Modal";
-import AddWordForm from "../../AddWordForm/AddWordForm";
 import { useDispatch, useSelector } from "react-redux";
 import { selectIsOpen } from "../../../redux/modal/selector";
 import type { AppDispatch } from "../../../redux/store";
-import { closeModal, openModal } from "../../../redux/modal/slice";
+import {  openModal } from "../../../redux/modal/slice";
 
 type DashboardBtnsProps = {
   className: string;

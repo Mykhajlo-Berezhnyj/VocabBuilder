@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchWords } from "./operations";
 import type { DictionaryState } from "./types";
+import type { RejectError } from "../../components/utils/getErrorMessage";
 
 const handlePending = (state: DictionaryState) => {
   state.isLoading = true;
@@ -41,7 +42,7 @@ const dictionarySlice = createSlice({
       })
       .addCase(fetchWords.rejected, (state: DictionaryState, action) => {
         handleRejected(state);
-        state.error = (action.payload as string) ?? "Unknown error";
+        state.error = (action.payload as RejectError) ?? "Unknown error";
       });
   },
 });

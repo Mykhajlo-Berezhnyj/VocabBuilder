@@ -7,6 +7,8 @@
   background-repeat: no-repeat;
   background-position: right 12px bottom 44px;
   background-size: 152px 121px;
+  z-index: -2;
+  position: relative;
 
   @media (min-width: 375px) {
     width: 343px;
@@ -17,6 +19,14 @@
     background-size: 212px 179px;
     background-position: right 6px bottom 21px;
   }
+}
+
+.sectionWellDone::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.2); 
+  z-index: -1;
 }
 
 .containernWellDone {

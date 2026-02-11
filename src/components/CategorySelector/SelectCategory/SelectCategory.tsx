@@ -9,25 +9,25 @@ type SelectCategoryProps = {
   value: SingleValue<Option> | null;
   options: Option[];
   onChange: (option: SingleValue<Option>) => void;
-  mode: "form" | "filter"; 
+  mode: "form" | "filter";
 };
 
 export default function SelectCategory({
   className,
   options,
   value,
-  mode= "filter",
+  mode = "filter",
   onChange,
 }: SelectCategoryProps) {
-  const isFilter = mode === "filter"
-  console.log("🚀 ~ SelectCategory ~ isFilter:", isFilter)
+  const isFilter = mode === "filter";
+  console.log("🚀 ~ SelectCategory ~ isFilter:", isFilter);
   return (
-    <Select
+    <Select<Option, false>
       className={className}
       options={options}
       styles={customSelectStyles(isFilter)}
       value={value}
-      onChange={onChange}
+      onChange={(newValue) => onChange(newValue)}
       placeholder="Categories"
       isClearable={true}
       isSearchable={true}

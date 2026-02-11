@@ -48,7 +48,7 @@ export function getVisiblePages({
       if (current > 2) {
         pages.push("...");
       }
-      if (current !== totalPages) {
+      if (current !== totalPages && current !==1) {
         pages.push(current);
       }
 

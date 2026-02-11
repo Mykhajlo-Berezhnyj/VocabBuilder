@@ -17,15 +17,14 @@ const handlePending = (state: UserDictionaryState) => {
 
 const handleRejected = (
   state: UserDictionaryState,
-  action: PayloadAction<RejectError | undefined>
+  action: PayloadAction<RejectError | undefined>,
 ) => {
   state.isLoading = false;
-  state.error = (action.payload as RejectError);
+  state.error = action.payload as RejectError;
 };
 
 const initialState: UserDictionaryState = {
   words: [],
-  // editingWord: null,
   totalPages: 0,
   page: 1,
   perPage: 10,
@@ -38,15 +37,6 @@ const userDictionarySlice = createSlice({
   name: "userDictionary",
   initialState: initialState,
   reducers: {
-    // addEditingWord(state, action) {
-    //   state.editingWord =
-    //     state.words.find((word) => {
-    //       return word._id === action.payload;
-    //     }) || null;
-    // },
-    // resetEditingWord(state) {
-    //   state.editingWord = null;
-    // },
     resetState() {
       return initialState;
     },
@@ -66,7 +56,7 @@ const userDictionarySlice = createSlice({
           state.totalPages = action.payload.totalPages;
           state.page = action.payload.page;
           state.perPage = action.payload.perPage;
-        }
+        },
       )
       .addCase(fetchUserWords.rejected, handleRejected)
       .addCase(createUserWord.pending, handlePending)
@@ -76,7 +66,7 @@ const userDictionarySlice = createSlice({
           state.isLoading = false;
           state.error = null;
           state.words.push(action.payload);
-        }
+        },
       )
       .addCase(createUserWord.rejected, handleRejected)
       .addCase(addUserWord.pending, handlePending)
@@ -91,7 +81,7 @@ const userDictionarySlice = createSlice({
         state.isLoading = false;
         state.error = null;
         const index = state.words.findIndex(
-          (word) => word._id === action.payload._id
+          (word) => word._id === action.payload._id,
         );
         if (index !== -1) {
           state.words[index] = action.payload;
@@ -103,7 +93,7 @@ const userDictionarySlice = createSlice({
         state.isLoading = false;
         state.error = null;
         state.words = state.words.filter(
-          (word) => word._id !== action.payload.id
+          (word) => word._id !== action.payload.id,
         );
       })
       .addCase(deleteWord.rejected, handleRejected)
@@ -114,13 +104,12 @@ const userDictionarySlice = createSlice({
           state.isLoading = false;
           state.error = null;
           state.totalCount = action.payload;
-        }
+        },
       )
       .addCase(fetchStatistics.rejected, handleRejected);
   },
 });
 
-export const { resetState, changePage } =
-  userDictionarySlice.actions;
+export const { resetState, changePage } = userDictionarySlice.actions;
 
 export default userDictionarySlice.reducer;

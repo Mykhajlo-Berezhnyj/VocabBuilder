@@ -45,7 +45,9 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(errorMiddlware),
+    })
+      .concat(errorMiddlware)
+      .concat(authErrorMiddleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

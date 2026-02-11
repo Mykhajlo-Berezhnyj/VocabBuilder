@@ -28,3 +28,4 @@ export default function AuthIllustration({ className }: AuthIllustration) {
     </div>
   );
 }
+

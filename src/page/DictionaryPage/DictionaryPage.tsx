@@ -66,6 +66,10 @@ export default function DictionaryPage() {
   const columns = useDictionaryColumns(handleClick, handleDelete);
 
   useEffect(() => {
+    dispatch(changePage(1));
+  }, [dispatch, filters]);
+
+  useEffect(() => {
     dispatch(fetchUserWords({ page, perPage, filters }));
   }, [page, perPage, filters, dispatch]);
 

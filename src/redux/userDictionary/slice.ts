@@ -54,7 +54,6 @@ const userDictionarySlice = createSlice({
           state.error = null;
           state.words = action.payload.results;
           state.totalPages = action.payload.totalPages;
-          state.page = action.payload.page;
           state.perPage = action.payload.perPage;
         },
       )

@@ -39,6 +39,10 @@ export default function RecommendPage() {
 
   const columns = useRecommendColumns(handleClick);
 
+    useEffect(() => {
+      dispatch(changePage(1));
+    }, [dispatch, filters]);
+  
   useEffect(() => {
     if (filters.category === "verb" && filters.isIrregular === null) return;
     dispatch(fetchWords({ page, perPage, filters }));

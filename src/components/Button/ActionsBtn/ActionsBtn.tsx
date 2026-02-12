@@ -13,7 +13,11 @@ type ActionsBtnProps = {
   onDelete: (id: string) => void;
 };
 
-export default function ActionsBtn({ editingWord, onEdit, onDelete }: ActionsBtnProps) {
+export default function ActionsBtn({
+  editingWord,
+  onEdit,
+  onDelete,
+}: ActionsBtnProps) {
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
     null,
   );
@@ -35,6 +39,8 @@ export default function ActionsBtn({ editingWord, onEdit, onDelete }: ActionsBtn
         aria-describedby={id}
         onClick={handleClick}
         className={css.btnAction}
+        aria-label="Action menu button"
+        title="Action menu button"
       >
         ...
       </Button>
@@ -49,14 +55,16 @@ export default function ActionsBtn({ editingWord, onEdit, onDelete }: ActionsBtn
           horizontal: "right",
         }}
         transformOrigin={{ vertical: "top", horizontal: "right" }}
-        PaperProps={{
-          sx: {
-            borderRadius: "15px",
-            px: "24px",
-            py: "12px",
-            boxShadow:
-              " 0px 4px 47px 0px rgba(var(--color-font-primary), 0.08)",
-            backgroundColor: "var(--background-header)",
+        slotProps={{
+          paper: {
+            sx: {
+              borderRadius: "15px",
+              px: "24px",
+              py: "12px",
+              boxShadow:
+                " 0px 4px 47px 0px rgba(var(--color-font-primary), 0.08)",
+              backgroundColor: "var(--background-header)",
+            },
           },
         }}
       >

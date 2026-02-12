@@ -23,16 +23,20 @@ export default function WellDoneModal({
     <section className={clsx(css.sectionWellDone, className)}>
       <Container className={css.containernWellDone}>
         <h2 className={css.title}>Well done</h2>
-        <div className={css.columnWrap}>
-          <AnswersColumn
-            nameColumn={`Correct answers (${correctPercent}%)`}
-            answers={correctAnswers}
-          />
-          <AnswersColumn
-            nameColumn={`Mistakes (${mistakesPercent}%)`}
-            answers={mistakes}
-          />
-        </div>
+        {total === 0 ? (
+          <p>Not answers</p>
+        ) : (
+          <div className={css.columnWrap}>
+            <AnswersColumn
+              nameColumn={`Correct answers (${correctPercent}%)`}
+              answers={correctAnswers}
+            />
+            <AnswersColumn
+              nameColumn={`Mistakes (${mistakesPercent}%)`}
+              answers={mistakes}
+            />
+          </div>
+        )}
       </Container>
     </section>
   );

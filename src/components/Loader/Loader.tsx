@@ -1,7 +1,12 @@
 import css from "./Loader.module.css";
 import clsx from "clsx";
 
-export default function Loader({ className }: { className?: string }) {
+type LoaderProps = {
+  className?: string;
+  loadName?: string;
+};
+
+export default function Loader({ className, loadName = "Loading" }: LoaderProps) {
   return (
     <div className={clsx(css.loaderWrapper, className)}>
       <div className={css.spinnerWrapper}>
@@ -13,7 +18,7 @@ export default function Loader({ className }: { className?: string }) {
         <div className={`${css.arc} ${css.arc6}`}></div>
         <div className={css.pulse}></div>
       </div>
-      <p>Loading. Please wait...</p>
+      <p>{loadName}. Please wait...</p>
     </div>
   );
 }

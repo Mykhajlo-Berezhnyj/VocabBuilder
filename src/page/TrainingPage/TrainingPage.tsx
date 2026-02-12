@@ -7,27 +7,29 @@ import css from "./TrainingPage.module.css";
 import { selectCurrentIndex, selectTasks } from "../../redux/tasks/selector";
 import NotWordReport from "../../components/NotWordReport/NotWordReport";
 import ProgressBar from "../../components/ProgressBar/ProgressBar";
+import { resetTraining } from "../../redux/tasks/slice";
 
 export default function TrainingPage() {
   const dispatch = useDispatch<AppDispatch>();
   const tasks = useSelector(selectTasks);
   const current = useSelector(selectCurrentIndex);
-  const progress = Math.round(((current+1) / tasks.length) * 100);
+  const progress = Math.round(((current + 1) / tasks.length) * 100);
 
   useEffect(() => {
+    dispatch(resetTraining());
     dispatch(fetchTasks());
   }, [dispatch]);
 
   return (
-    <main className={css.main}>
+    <>
       {tasks.length === 0 ? (
         <NotWordReport />
       ) : (
         <>
-          <ProgressBar progress={progress}  className={css.sectionProgress} />
+          <ProgressBar progress={progress} className={css.sectionProgress} />
           <TrainingRoom className={css.sectionTrainingRoom} />
         </>
       )}
-    </main>
+    </>
   );
 }

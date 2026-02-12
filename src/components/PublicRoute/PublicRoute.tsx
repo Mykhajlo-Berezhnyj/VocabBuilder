@@ -5,15 +5,16 @@ import {
 } from "../../redux/auth/selectors";
 import { Navigate, Outlet, useSearchParams } from "react-router-dom";
 import Loader from "../Loader/Loader";
+import css from "../PrivateRoute/PrivateRoute.module.css";
 
 export default function PublicRoute() {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const isRefreshing = useSelector(selectIsRefreshing);
   const [searchParams] = useSearchParams();
   const returnUrl = searchParams.get("returnUrl") || "/dictionary";
-  console.log("🚀 ~ PublicRoute ~ returnUrl:", returnUrl)
 
-  if (isRefreshing) return <Loader />;
+  if (isRefreshing)
+    return <Loader className={css.loader} loadName="Verifying user…" />;
 
   return isLoggedIn ? <Navigate to={returnUrl} replace /> : <Outlet />;
 }

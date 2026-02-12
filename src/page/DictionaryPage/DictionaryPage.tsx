@@ -70,7 +70,7 @@ export default function DictionaryPage() {
   }, [page, perPage, filters, dispatch]);
 
   return (
-    <main>
+    <>
       <Dashboard className={css.sectionDashboard} />
       {error && <p>{error.message}</p>}
       {isLoading ? (
@@ -89,6 +89,6 @@ export default function DictionaryPage() {
           />
         </>
       )}
-    </main>
+    </>
   );
 }

@@ -40,13 +40,12 @@ export default function RecommendPage() {
   const columns = useRecommendColumns(handleClick);
 
   useEffect(() => {
-    // if (filters.category === "verb" && filters.isIrregular === null) return;
+    if (filters.category === "verb" && filters.isIrregular === null) return;
     dispatch(fetchWords({ page, perPage, filters }));
-    console.log("🚀 ~ Pagination ~ page:", page);
   }, [page, perPage, filters, dispatch]);
 
   return (
-    <main>
+    <>
       <Dashboard className={css.dashboard} />
       {error && <p>{error.message}</p>}
       {isLoading ? (
@@ -66,6 +65,6 @@ export default function RecommendPage() {
           />
         </>
       )}
-    </main>
+    </>
   );
 }

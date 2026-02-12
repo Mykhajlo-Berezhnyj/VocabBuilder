@@ -44,6 +44,7 @@ export default function ActionBlock({
   return (
     <div className={clsx(css.btnWrap, className)}>
       <Button
+        aria-label={btnName}
         type={type}
         color="fill"
         className={clsx(css.btnAction, classNameBtn)}
@@ -55,6 +56,7 @@ export default function ActionBlock({
       {linkHref ? (
         <Link
           to={linkHref}
+          aria-label={linkText}
           className={clsx(css.link, classNameLink)}
           onClick={linkOnClick}
           state={state}
@@ -62,7 +64,11 @@ export default function ActionBlock({
           {linkText}
         </Link>
       ) : (
-        <Button className={clsx(css.link, classNameLink)} onClick={linkOnClick}>
+        <Button
+          aria-label={linkText}
+          className={clsx(css.link, classNameLink)}
+          onClick={linkOnClick}
+        >
           {linkText}
         </Button>
       )}

@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { getErrorMessage } from "../utils/getErrorMessage";
 import type { AnswerResponse } from "../../redux/tasks/type";
+import { selectWords } from "../../redux/userDictionary/selectors";
 
 type UseCurrentAnswerProps = {
   reset: () => void;
@@ -23,11 +24,13 @@ type UseCurrentAnswerProps = {
 export function useCurrentAnswer({ reset }: UseCurrentAnswerProps) {
   const dispatch = useDispatch<AppDispatch>();
   const [isOpen, setIsOpen] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
   const [result, setResult] = useState<AnswerResponse[]>([]);
   const tasks = useSelector(selectTasks);
   const currentIndex = useSelector(selectCurrentIndex);
   const answers = useSelector(selectAnswers);
   const navigate = useNavigate();
+  const words = useSelector(selectWords);
 
   if (!tasks || tasks?.length === 0) {
     return {
@@ -40,36 +43,45 @@ export function useCurrentAnswer({ reset }: UseCurrentAnswerProps) {
     };
   }
   const task = tasks?.[currentIndex];
+  const word = words.find((w) => w._id === task._id);
   const isLastTask = !!task && currentIndex === tasks.length - 1;
   const fieldName = task.task;
 
   const handleAnswer = async (data: FormData) => {
     if (!task) return;
     const value = data[fieldName]?.trim();
-    if (!value) {
+    let answer;
+    if (value) {
+      answer = buildAnswer({ word, task, value });
+      if (!isLastTask) {
+        dispatch(createAnswers(answer));
+        dispatch(nextIndex());
+        reset();
+        return;
+      }
+    } else if (!value) {
       if (!isLastTask) {
         dispatch(nextIndex());
         reset();
+        return;
       }
+    }
+    const payload = value ? [...answers, answer] : answers;
+    if (payload.length === 0) {
+      toast.error("Please provide at least one answer before saving.");
       return;
     }
-    const answer = buildAnswer({ task, value });
-
-    if (!isLastTask) {
-      dispatch(createAnswers(answer));
-      dispatch(nextIndex());
-      reset();
-      return;
-    }
-
     try {
-      const res = await axios.post("words/answers", [...answers, answer]);
+      setIsSaving(true);
+      const res = await axios.post("words/answers", payload);
       setResult(res.data);
       setIsOpen(true);
     } catch (error) {
       const { message } = getErrorMessage(error);
       toast.error(message);
       navigate("/dictionary");
+    } finally {
+      setIsSaving(false);
     }
   };
 
@@ -80,6 +92,7 @@ export function useCurrentAnswer({ reset }: UseCurrentAnswerProps) {
     task,
     result,
     isOpen,
+    isSaving,
     closeModal: () => {
       setIsOpen(false);
       navigate("/dictionary");

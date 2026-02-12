@@ -41,7 +41,6 @@ function App() {
   const token = useSelector(selectToken);
   const type = useSelector(selectTypeModal);
   const editingWord = useSelector(selectPayload);
-  console.log("🚀 ~ App ~ type:", type);
 
   const handleClose = () => {
     dispatch(closeModal());
@@ -64,7 +63,7 @@ function App() {
 
   return (
     <>
-      <Suspense fallback={<Loader />}>
+      <Suspense fallback={<Loader className="fallbackLoader" />}>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route element={<PublicRoute />}>

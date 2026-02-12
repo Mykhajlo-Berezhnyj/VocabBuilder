@@ -23,10 +23,14 @@ export default function Pagination({
 
   if (!totalPages || totalPages <= 1) return null;
 
-  const pages = getVisiblePages({ current: page, totalPages: totalPages, width: width });
+  const pages = getVisiblePages({
+    current: page,
+    totalPages: totalPages,
+    width: width,
+  });
 
   return (
-    <nav className={clsx(css.nav, className)}>
+    <nav aria-label="Pagination" className={clsx(css.nav, className)}>
       <Container className={css.containerPagination}>
         <Button
           className={css.btnNav}

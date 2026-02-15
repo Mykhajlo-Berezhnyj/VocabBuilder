@@ -20,7 +20,7 @@ export default function SelectCategory({
   onChange,
 }: SelectCategoryProps) {
   const isFilter = mode === "filter";
-  console.log("🚀 ~ SelectCategory ~ isFilter:", isFilter);
+ 
   return (
     <Select<Option, false>
       className={className}

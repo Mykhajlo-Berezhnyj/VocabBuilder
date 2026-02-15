@@ -1,20 +1,15 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import {
   selectOptions,
   selectSelectedFilters,
 } from "../../../redux/filters/selectors";
-import {
-  setCategories,
-  setIsIrregular,
-  setSearch,
-} from "../../../redux/filters/slice";
 import { useEffect, useState } from "react";
-import type { AppDispatch } from "../../../redux/store";
 import useDebouncedValue from "../../utils/useDebouncedValue";
 import css from "./Filters.module.css";
 import Icon from "../../Icon/Icon";
 import CategorySelector from "../../CategorySelector/CategorySelector";
 import type { Option } from "../../CategorySelector/SelectCategory/SelectCategory";
+import { useSearchParams } from "react-router-dom";
 
 type FiltersProps = {
   className: string;
@@ -24,14 +19,53 @@ export default function Filters({ className }: FiltersProps) {
   const [inputVale, setInputValue] = useState("");
   const options = useSelector(selectOptions);
   const { category, isIrregular } = useSelector(selectSelectedFilters);
-  const dispatch = useDispatch<AppDispatch>();
-
+  const [searchParams, setSearchParams] = useSearchParams();
+ 
   const debouncedKeyword = useDebouncedValue(inputVale, 300);
   const satinizedKeyword = debouncedKeyword.trim();
 
   useEffect(() => {
-    dispatch(setSearch(satinizedKeyword));
-  }, [satinizedKeyword, dispatch]);
+    const currentKeyword = searchParams.get("keyword") ?? "";
+    if (satinizedKeyword === currentKeyword) return;
+
+    setSearchParams((prev) => {
+      const newParams = new URLSearchParams(prev);
+      if (satinizedKeyword) {
+        newParams.set("keyword", satinizedKeyword);
+      } else {
+        newParams.delete("keyword");
+      }
+      newParams.set("page", "1");
+      return newParams;
+    });
+  }, [satinizedKeyword, searchParams, setSearchParams]);
+
+  const handleChangeCategory = (opt: Option | null) => {
+    setSearchParams((prev) => {
+      const newParams = new URLSearchParams(prev);
+      if (opt?.value) {
+        newParams.set("category", opt.value);
+      } else {
+        newParams.delete("category");
+        newParams.delete("isIrregular");
+      }
+      newParams.set("page", "1");
+      return newParams;
+    });
+  };
+
+  const handleChangeIsIrregular = (val: boolean) => {
+    setSearchParams((prev) => {
+      const newParams = new URLSearchParams(prev);
+      if (val) {
+        newParams.set("isIrregular", String(val));
+      } else {
+        newParams.delete("isIrregular");
+      }
+      newParams.set("page", "1");
+      return newParams;
+    });
+  };
 
   const selectorProps =
     category === "verb"
@@ -41,10 +75,9 @@ export default function Filters({ className }: FiltersProps) {
           options,
           category: "verb" as const,
           value: options.find((opt) => opt.value === category) || null,
-          onChange: (opt: Option | null) =>
-            dispatch(setCategories(opt?.value ?? null)),
-          isIrregular,
-          onChangeIsIrregular: (val: boolean) => dispatch(setIsIrregular(val)),
+          onChange: handleChangeCategory,
+          isIrregular: !!isIrregular,
+          onChangeIsIrregular: handleChangeIsIrregular,
         }
       : {
           className: css.selectWrap,
@@ -52,10 +85,8 @@ export default function Filters({ className }: FiltersProps) {
           options,
           category,
           value: options.find((opt) => opt.value === category) || null,
-          onChange: (opt: Option | null) =>
-            dispatch(setCategories(opt?.value ?? null)),
+          onChange: handleChangeCategory,
         };
-
   return (
     <form className={className}>
       <div className={css.inputWrap}>

@@ -5,29 +5,42 @@ import clsx from "clsx";
 import css from "./Pagination.module.css";
 import Icon from "../Icon/Icon";
 import useWindowWidth from "../hook/useWindowWidth";
+import { useSearchParams } from "react-router-dom";
+import { useCallback } from "react";
 
 type PaginationProps = {
   className?: string;
   page: number;
   totalPages: number;
-  changePage: (page: number) => void;
 };
 
 export default function Pagination({
   className,
   page,
   totalPages,
-  changePage,
 }: PaginationProps) {
   const width = useWindowWidth();
 
-  if (!totalPages || totalPages <= 1) return null;
+  const [, setSearchParams] = useSearchParams();
 
   const pages = getVisiblePages({
     current: page,
     totalPages: totalPages,
     width: width,
   });
+
+  const changePage = useCallback(
+    (page: number) => {
+      setSearchParams((prev) => {
+        const params = new URLSearchParams(prev);
+        params.set("page", String(page));
+        return params;
+      });
+    },
+    [setSearchParams],
+  );
+
+  if (!totalPages || totalPages <= 1) return null;
 
   return (
     <nav aria-label="Pagination" className={clsx(css.nav, className)}>

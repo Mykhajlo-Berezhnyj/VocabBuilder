@@ -1,12 +1,12 @@
 import clsx from "clsx";
 import css from "./UserNav.module.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useSearchParams } from "react-router-dom";
 import ButtonLogout from "../Button/ButtonLogout/ButtonLogout";
 
 type UserNavProps = {
   className?: string;
   onCloseMenu?: () => void;
-  handleLogout: ()=>void;
+  handleLogout: () => void;
 };
 
 export default function UserNav({
@@ -17,13 +17,16 @@ export default function UserNav({
   const getActiveLinkClass = ({ isActive }: { isActive: boolean }) => {
     return clsx(css.link, isActive && css.active);
   };
+  const [searchParams,] = useSearchParams();
+  const params = new URLSearchParams(searchParams);
+  const limit = params.get("limit") ?? "7";
 
   return (
     <nav className={className}>
       <ul className={css.navList}>
         <li className={css.navItem}>
           <NavLink
-            to="/dictionary"
+            to={`/dictionary?page=1&limit=${limit}`}
             className={getActiveLinkClass}
             aria-label="VocabBuilder Dictionary"
             onClick={() => onCloseMenu()}
@@ -33,7 +36,7 @@ export default function UserNav({
         </li>
         <li className={css.navItem}>
           <NavLink
-            to="/recommend"
+            to={`/recommend?page=1&limit=${limit}`}
             className={getActiveLinkClass}
             aria-label="VocabBuilder Recommend"
             onClick={() => onCloseMenu()}

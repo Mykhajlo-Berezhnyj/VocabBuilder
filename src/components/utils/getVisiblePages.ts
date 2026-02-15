@@ -17,7 +17,7 @@ export function getVisiblePages({
 
   if (totalPages < 5) {
     pages = Array.from({ length: totalPages }, (_, i) => i + 1);
-    console.log("🚀 ~ getVisiblePages ~ pages:", pages);
+  
     return pages;
   }
 

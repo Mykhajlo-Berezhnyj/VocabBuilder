@@ -16,7 +16,7 @@ export const fetchWords = createAsyncThunk<ApiFilterResponse, FetchWordsArgs>(
     const { keyword, category, isIrregular } = filters;
     const params = {
       page: page,
-      perPage: perPage,
+      limit: perPage,
       keyword: keyword || undefined,
       category: category || undefined,
       isIrregular: category === "verb" ? isIrregular : undefined,

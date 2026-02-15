@@ -22,7 +22,7 @@ const filterSlice = createSlice({
         state.selectedFilters = {
           keyword: state.selectedFilters.keyword,
           category: "verb",
-          isIrregular: false,
+          isIrregular: null,
         };
       } else {
         state.selectedFilters = {
@@ -43,7 +43,7 @@ const filterSlice = createSlice({
         category: null,
       };
     },
-    setIsIrregular(state, action: PayloadAction<boolean>) {
+    setIsIrregular(state, action: PayloadAction<boolean | null>) {
       if (state.selectedFilters.category === "verb") {
         state.selectedFilters.isIrregular = action.payload;
       }

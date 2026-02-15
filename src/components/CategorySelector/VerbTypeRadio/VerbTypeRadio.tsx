@@ -23,8 +23,7 @@ export default function VerbTypeRadio({
   const regularId = `verb-regular-${mode}`;
   const irregularId = `verb-irregular-${mode}`;
   const name = `verb-${mode}`;
-  console.log("🚀 ~ VerbTypeRadio ~ hasError:", hasError)
-
+ 
   return (
     <div className={clsx(css.radioGroup, className, hasError && css.error)}>
       <div className={css.radioWrap}>

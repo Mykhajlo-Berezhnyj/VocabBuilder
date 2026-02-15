@@ -27,7 +27,7 @@ const initialState: UserDictionaryState = {
   words: [],
   totalPages: 0,
   page: 1,
-  perPage: 10,
+  perPage: 7,
   totalCount: 0,
   isLoading: false,
   error: null,
@@ -42,6 +42,9 @@ const userDictionarySlice = createSlice({
     },
     changePage(state, action) {
       state.page = action.payload;
+    },
+    changePerPage(state, action) {
+      state.perPage = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -109,6 +112,7 @@ const userDictionarySlice = createSlice({
   },
 });
 
-export const { resetState, changePage } = userDictionarySlice.actions;
+export const { resetState, changePage, changePerPage } =
+  userDictionarySlice.actions;
 
 export default userDictionarySlice.reducer;

@@ -19,7 +19,7 @@ export type CategoryNotVerb = Exclude<Category, "verb">;
 
 export type VerbFilter = BaseFilter & {
   category: "verb";
-  isIrregular: boolean;
+  isIrregular: boolean | null;
 };
 
 export type NonVerbFilter = BaseFilter & {

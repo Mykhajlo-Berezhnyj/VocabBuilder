@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import Dashboard from "../../components/Dashboard/Dashboard";
 import css from "./DictionaryPage.module.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,6 +27,7 @@ import {
   selectIsLoading,
 } from "../../redux/userDictionary/selectors";
 import Loader from "../../components/Loader/Loader";
+import { useInitFromUrl } from "../../components/hook/useInitFromUrl";
 
 export default function DictionaryPage() {
   const dispatch = useDispatch<AppDispatch>();
@@ -38,6 +39,8 @@ export default function DictionaryPage() {
   const isOpen = useSelector(selectIsOpen);
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
+
+  useInitFromUrl();
 
   const handleClick = useCallback(
     (editingWord: UserWordResponse) => {
@@ -65,14 +68,6 @@ export default function DictionaryPage() {
 
   const columns = useDictionaryColumns(handleClick, handleDelete);
 
-  useEffect(() => {
-    dispatch(changePage(1));
-  }, [dispatch, filters]);
-
-  useEffect(() => {
-    dispatch(fetchUserWords({ page, perPage, filters }));
-  }, [page, perPage, filters, dispatch]);
-
   return (
     <>
       <Dashboard className={css.sectionDashboard} />
@@ -89,7 +84,6 @@ export default function DictionaryPage() {
           <Pagination
             page={page}
             totalPages={totalPages}
-            changePage={(newPage) => dispatch(changePage(newPage))}
           />
         </>
       )}

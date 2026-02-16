@@ -51,12 +51,18 @@ export const registrationSchema = baseSchema.shape({
     .required("Password is required")
     .matches(
       /^(?=.*[a-zA-Z]{6})(?=.*\d)[a-zA-Z\d]{7}$/,
-      "Password must be exactly 7 characters long and contain at least 6 letters and 1 number"
+      "Password must be exactly 7 characters long and contain at least 6 letters and 1 number",
     ),
 });
 
 export const loginSchema = baseSchema.shape({
-  password: yup.string().required("Password is required"),
+  password: yup
+    .string()
+    .required("Password is required")
+    .matches(
+      /^(?=.*[a-zA-Z]{6})(?=.*\d)[a-zA-Z\d]{7}$/,
+      "Password must be exactly 7 characters long and contain at least 6 letters and 1 number",
+    ),
 });
 
 export type LoginData = yup.InferType<typeof loginSchema>;

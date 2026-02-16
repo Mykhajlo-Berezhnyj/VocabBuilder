@@ -71,14 +71,13 @@ const authSlice = createSlice({
       .addCase(registration.fulfilled, handleAuthFulfilled)
       .addCase(registration.rejected, (state, action) => {
         handleRejected(state);
-        state.error =
-          action.payload ?? {message: "Registration failed"};
+        state.error = action.payload ?? { message: "Registration failed" };
       })
       .addCase(login.pending, handlePending)
       .addCase(login.fulfilled, handleAuthFulfilled)
       .addCase(login.rejected, (state, action) => {
         handleRejected(state);
-        state.error = action.payload ?? {message: "Login failed"};
+        state.error = action.payload ?? { message: "Login failed" };
       })
       .addCase(refreshUser.pending, (state) => {
         state.error = null;
@@ -87,15 +86,14 @@ const authSlice = createSlice({
       .addCase(refreshUser.fulfilled, handleAuthFulfilled)
       .addCase(refreshUser.rejected, (state, action) => {
         state.isRefreshing = false;
-        state.error =
-          action.payload ?? {message: "Refresh failed"};
+        state.error = action.payload ?? { message: "Refresh failed" };
       })
       .addCase(logout.pending, handlePending)
       .addCase(logout.fulfilled, handleLogOut)
       .addCase(logout.rejected, (state, action) => {
         handleLogOut(state);
-        state.error =
-          action.payload ?? {message: "Logout failed"};
+        console.log("🚀 ~ state.user:", state.user);
+        state.error = action.payload ?? { message: "Logout failed" };
       });
   },
 });

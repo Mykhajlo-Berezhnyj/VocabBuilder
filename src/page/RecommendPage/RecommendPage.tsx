@@ -38,7 +38,7 @@ export default function RecommendPage() {
 
   return (
     <>
-      <Dashboard className={css.dashboard} />
+      <Dashboard className={css.sectionDashboard} />
       {error && <p>{error.message}</p>}
       {isLoading ? (
         <Loader />

@@ -1,6 +1,7 @@
 {
   "name": "vocabbuilder",
-  "private": true,
+  "private": false,
+  "author": "Mykhajlo-Berezhnyj",
   "version": "0.0.0",
   "type": "module",
   "scripts": {

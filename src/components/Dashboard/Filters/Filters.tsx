@@ -93,6 +93,8 @@ export default function Filters({ className }: FiltersProps) {
         <input
           type="text"
           name="keyword"
+          aria-label="Find the word"
+          title="Find the word"
           className={css.input}
           value={inputVale}
           placeholder="Find the word"

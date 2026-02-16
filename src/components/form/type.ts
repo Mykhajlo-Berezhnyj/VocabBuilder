@@ -9,6 +9,7 @@ export type EditFormData = BaseWordFormData;
 
 type AddFormDataNotVerb = BaseWordFormData & {
   category: CategoryNotVerb;
+  isIrregular?: never;
 };
 
 type AddFormDataVerb = BaseWordFormData & {

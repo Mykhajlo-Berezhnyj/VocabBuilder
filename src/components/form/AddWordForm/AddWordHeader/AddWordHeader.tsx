@@ -21,6 +21,7 @@ export default function AddWordHeader({ className }: AddWordHeaderProps) {
     watch,
     trigger,
     setValue,
+    unregister,
     formState: { errors },
   } = useFormContext();
 
@@ -30,16 +31,12 @@ export default function AddWordHeader({ className }: AddWordHeaderProps) {
     if (category === "verb") {
       trigger("isIrregular");
     } else {
-      setValue("isIrregular", null, {
-        shouldValidate: false,
-        shouldTouch: false,
-        shouldDirty: false,
-      });
+      unregister("isIrregular");
     }
-  }, [category, trigger, setValue]);
+  }, [category, trigger, unregister]);
 
   return (
-    <div className={clsx(css.headerForm, className)} >
+    <div className={clsx(css.headerForm, className)}>
       <header className={css.headerWrap}>
         <h2 className={css.titleHeader}>Add word</h2>
         <p className={css.textHeader}>

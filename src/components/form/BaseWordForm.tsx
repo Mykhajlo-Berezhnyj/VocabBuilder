@@ -70,6 +70,8 @@ export default function BaseWordForm<TFormData extends FieldValues>({
                   el === "en"
                     ? {
                         required: "Required",
+                        setValueAs: (value: string) =>
+                          value.trim().toLowerCase(),
                         pattern: {
                           value: /^\b[A-Za-z'-]+(?:\s+[A-Za-z'-]+)*$\b/,
                           message: "Invald word",
@@ -77,6 +79,8 @@ export default function BaseWordForm<TFormData extends FieldValues>({
                       }
                     : {
                         required: "Required",
+                        setValueAs: (value: string) =>
+                          value.trim().toLowerCase(),
                         pattern: {
                           value: /^(?![A-Za-z])[А-ЯІЄЇҐґа-яієїʼ\s]+$/u,
                           message: "Invalid ukrainian word",
@@ -102,123 +106,3 @@ export default function BaseWordForm<TFormData extends FieldValues>({
     </FormProvider>
   );
 }
-
-// export function EditWordForm<TAdd extends boolean>({
-//   className,
-//   editingWord,
-//   children,
-//   onClose,
-// }: EditWordFormProps) {
-//   const dispatch = useDispatch<AppDispatch>();
-//   const isLoading = useSelector(selectIsLoading);
-
-//   const methods = useForm<WordFormData<TAdd>>({
-//     shouldFocusError: true,
-//     shouldUnregister: false,
-//     mode: "all",
-//     reValidateMode: "onChange",
-//     defaultValues: { ua: editingWord?.ua ?? "", en: editingWord?.en ?? "" },
-//   });
-
-//   const {
-//     register,
-//     formState: { errors, isValid, isSubmitted },
-//     handleSubmit,
-//   } = methods;
-
-//   const onSubmit = async (formData: WordFormData<TAdd>) => {
-//     if (editingWord) {
-//       const updateWord = {
-//         ua: formData.ua,
-//         en: formData.en,
-//         category: editingWord.category,
-//         isIrregular: editingWord.isIrregular
-//           ? editingWord.isIrregular
-//           : undefined,
-//       };
-
-//       try {
-//         await dispatch(
-//           editUserWord({ id: editingWord._id, userWord: updateWord }),
-//         ).unwrap();
-//         toast.success("Word editing successful");
-//         onClose();
-//       } catch (error) {
-//         console.error(error);
-//         // toast.error(typeof error === "string" ? error : "Unknown error");
-//       }
-//     } else {
-//       try {
-//         await dispatch(createUserWord(formData as WordFormData<true>)).unwrap();
-//         toast.success("New word added successfully");
-//         onClose();
-//       } catch (error) {
-//         console.error(error);
-//       }
-//     }
-//   };
-
-//   const onInvalid = () => {
-//     toast.error("Please fill in all required fields");
-//   };
-//   const fields: Array<"ua" | "en"> = ["ua", "en"];
-
-//   return (
-//     <FormProvider {...methods}>
-//       <form
-//         className={clsx(css.form, className)}
-//         onSubmit={handleSubmit(onSubmit, onInvalid)}
-//       >
-//         {children}
-//         <div className={css.inputGroup}>
-//           {fields.map((el) => (
-//             <div key={el} className={css.fieldWrap}>
-//               <LanguageLabel className={css.wordWrap} fieldName={el} />
-//               <InputField
-//                 className={css.inputWrap}
-//                 name={el}
-//                 register={register}
-//                 rules={
-//                   el === "en"
-//                     ? {
-//                         required: "Required",
-//                         pattern: {
-//                           value: /^\b[A-Za-z'-]+(?:\s+[A-Za-z'-]+)*$\b/,
-//                           message: "Invald word",
-//                         },
-//                       }
-//                     : {
-//                         required: "Required",
-//                         pattern: {
-//                           value: /^(?![A-Za-z])[А-ЯІЄЇҐґа-яієїʼ\s]+$/u,
-//                           message: "Invalid ukrainian word",
-//                         },
-//                       }
-//                 }
-//                 error={errors[el]?.message}
-//               />
-//             </div>
-//           ))}
-//         </div>
-//         <div className={css.btnWrap}>
-//           <Button
-//             type="submit"
-//             className={css.btnSave}
-//             disabled={isLoading || (!isValid && isSubmitted)}
-//           >
-//             {isLoading ? "Saving" : "Save"}
-//           </Button>
-//           <Button
-//             color="fill"
-//             className={css.btnCancel}
-//             onClick={() => {
-//               onClose();
-//             }}
-//           >
-//             Cancel
-//           </Button>
-//         </div>
-//       </form>
-//     </FormProvider>
-//   );
-// }

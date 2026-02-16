@@ -8,7 +8,12 @@ type AddWordBtnProps = {
 
 export default function AddWordBtn({ onClick }: AddWordBtnProps) {
   return (
-    <Button onClick={onClick} className={css.btnAddWord}>
+    <Button
+      aria-label="Add to dictionary"
+      title="Add to dictionary"
+      onClick={onClick}
+      className={css.btnAddWord}
+    >
       <span className={css.btnName}>Add to dictionary</span>
       <Icon iconName="btn-addWord" className={css.icon} size={20} />
     </Button>

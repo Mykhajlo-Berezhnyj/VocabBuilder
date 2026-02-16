@@ -36,6 +36,12 @@
   }
 }
 
+.btnNav:hover,
+.btnNav:focus-visible {
+  background-color: rgba(var(--color-primary-rgb), 0.5);
+  color: var(--color-font-primary);
+}
+
 .active {
   background-color: var(--color-primary);
   color: var(--color-font-secondary);
@@ -48,5 +54,10 @@
 }
 
 .btnNav:disabled .icon {
-  color: var(--rgb-color-primary);
+  color: var(--color-primary);
+}
+
+.btnNav:disabled {
+  background-color: transparent;
+  cursor: auto;
 }

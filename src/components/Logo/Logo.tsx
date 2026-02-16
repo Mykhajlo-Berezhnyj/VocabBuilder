@@ -9,11 +9,7 @@ type LogoProps = {
 export default function Logo({ className }: LogoProps) {
   return (
     <Link to="/" aria-label="Home VocabBuilder" className={className}>
-      <Icon
-        className={css.icon}
-        iconName="logo"
-        aria-label="logo VocabBuilder"
-      />
+      <Icon className={css.icon} iconName="logo" aria-hidden="true" />
       VocabBuilder
     </Link>
   );

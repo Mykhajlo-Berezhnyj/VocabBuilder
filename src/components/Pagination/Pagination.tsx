@@ -67,6 +67,7 @@ export default function Pagination({
           ) : (
             <Button
               id="num"
+              key={num}
               className={clsx(css.btnNav, { [css.active]: num === page })}
               onClick={() => changePage(num)}
             >

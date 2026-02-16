@@ -1,7 +1,8 @@
 import { isRejectedWithValue, type Middleware } from "@reduxjs/toolkit";
 import type { RejectError } from "../utils/getErrorMessage";
 import type { AppDispatch } from "../../redux/store";
-import { logout } from "../../redux/auth/operations";
+import { clearAuth } from "../../redux/auth/slice";
+import { clearAuthHeader } from "../../redux/auth/operations";
 
 export const authErrorMiddleware: Middleware =
   ({ dispatch }) =>
@@ -14,7 +15,9 @@ export const authErrorMiddleware: Middleware =
         return next(action);
       }
       if (payload?.status === 401) {
-        (dispatch as AppDispatch)(logout());
+        (dispatch as AppDispatch)(clearAuth());
+        clearAuthHeader();
+        payload.message = "You are not authorized. Please sign in again";
       }
     }
     return next(action);

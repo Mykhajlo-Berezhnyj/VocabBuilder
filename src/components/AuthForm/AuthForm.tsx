@@ -15,7 +15,10 @@ import {
 } from "../validation/validation";
 import { type AppDispatch } from "../../redux/store";
 import toast from "react-hot-toast";
-import { selectExistingEmail } from "../../redux/auth/selectors";
+import {
+  selectExistingEmail,
+  selectIsLoading,
+} from "../../redux/auth/selectors";
 import { addExistingEmail, clearExistingEmail } from "../../redux/auth/slice";
 import ActionBlock from "../ActionBlock/ActionBlock";
 
@@ -29,6 +32,7 @@ export default function AuthForm({ className, isRegisterPage }: AuthFormProps) {
   const navigate = useNavigate();
   const schema = isRegisterPage ? registrationSchema : loginSchema;
   const existingEmail = useSelector(selectExistingEmail);
+  const isLoading = useSelector(selectIsLoading);
 
   type FormData = RegistrationData | LoginData;
 
@@ -58,7 +62,7 @@ export default function AuthForm({ className, isRegisterPage }: AuthFormProps) {
         toast.success("Registration successful!");
         dispatch(clearExistingEmail());
       } else {
-        const loginData =  {
+        const loginData = {
           ...(data as LoginData),
           email: data.email.trim().toLowerCase(),
           password: data.password.trim(),
@@ -140,7 +144,15 @@ export default function AuthForm({ className, isRegisterPage }: AuthFormProps) {
       </div>
       <ActionBlock
         className={css.btnWrap}
-        btnName={isRegisterPage ? "Register" : "Login"}
+        btnName={
+          isRegisterPage
+            ? isLoading
+              ? "Registering..."
+              : "Register"
+            : isLoading
+              ? "Login In ..."
+              : "Login"
+        }
         type="submit"
         classNameBtn={css.btnLogin}
         disabled={isSubmitting || !isValid}

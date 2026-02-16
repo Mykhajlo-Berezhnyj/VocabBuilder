@@ -1,4 +1,8 @@
 import css from "./AuthIllustration.module.css";
+import desktop1x from "../image/register-destkop.webp";
+import desktop2x from "../image/register-destkop@2x.webp";
+import register1x from "../image/register.webp";
+import register2x from "../image/register@2x.webp";
 
 type AuthIllustration = {
   className?: string;
@@ -10,15 +14,15 @@ export default function AuthIllustration({ className }: AuthIllustration) {
       <picture className={css.img}>
         <source
           media="(min-width:768px)"
-          srcSet="/src/components/image/register-destkop.webp 1x, /src/components/image/register-desktop@2x.webp 2x"
+          srcSet={`${desktop1x} 1x, ${desktop2x} 2x`}
         />
         <source
           media="(max-width: 767px)"
-          srcSet="/src/components/image/register.webp 1x, /src/components/image/register@2x.webp 2x"
+          srcSet={`${register1x} 1x, ${register2x} 2x`}
         />
         <img
           className={css.img}
-          src="/src/components/image/register.webp"
+          src={`${register1x}`}
           alt="Two people reading books"
         />
       </picture>
@@ -28,4 +32,3 @@ export default function AuthIllustration({ className }: AuthIllustration) {
     </div>
   );
 }
-

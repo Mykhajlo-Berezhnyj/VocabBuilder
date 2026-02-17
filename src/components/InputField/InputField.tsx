@@ -6,6 +6,7 @@ import type {
 } from "react-hook-form";
 import css from "../InputFieldPassword/InputFieldPassword.module.css";
 import clsx from "clsx";
+import Icon from "../Icon/Icon";
 
 interface InputFieldProps<T extends FieldValues> {
   name: Path<T>;
@@ -54,7 +55,14 @@ export default function InputField<T extends FieldValues>({
       />
       {error && (
         <span role="alert" className={css.error}>
+          <Icon className={css.iconError} iconName="error" />
           {error}
+        </span>
+      )}
+      {isValid && (
+        <span role="alert" className={css.valid}>
+          <Icon className={css.iconError} iconName="success" />
+          {`Success ${name}`}
         </span>
       )}
     </div>

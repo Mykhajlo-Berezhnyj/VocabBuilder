@@ -9,16 +9,16 @@ export default function NotFoundPage() {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCount((prev) => {
-        if (prev <= 1) {
-          clearInterval(timer);
-          navigate("/");
-        }
-        return prev - 1;
-      });
+      setCount((prev) => prev - 1);
     }, 10);
     return () => clearInterval(timer);
   }, []);
+
+  useEffect(() => {
+    if (count <= 0) {
+      navigate("/");
+    }
+  }, [count, navigate]);
 
   const percentage = ((mSeconds - count) / mSeconds) * 100;
 

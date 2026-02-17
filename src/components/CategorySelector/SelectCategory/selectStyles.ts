@@ -6,15 +6,21 @@ export const customSelectStyles = (
 ): StylesConfig<Option, false, GroupBase<Option>> => ({
   control: (base: CSSObjectWithLabel) => ({
     ...base,
-    backgroundColor: isFilter ? "var(--color-header)" : "var(--color-primary)",
-    // border: "1 solid rgba(var(--rgb-color-font-primary), 0.1)",
+    backgroundColor: "transparent",
+    borderColor: isFilter
+      ? "rgba(var(--rgb-color-font-primary), 0.1)"
+      : "rgba(var(--rgb-color-font-secondery), 0.3)",
     boxShadow: "none",
     height: 48,
     width: "100%",
     borderRadius: "var(--border-radius)",
     display: "flex",
     alignItems: "center",
-    // "&:hover": { borderColor: "#555" },
+    "&:hover, &:focus-visible": {
+      borderColor: isFilter
+        ? "var(--color-primary)"
+        : "var(--color-font-secondary)",
+    },
   }),
   valueContainer: (base) => ({
     ...base,
@@ -48,18 +54,23 @@ export const customSelectStyles = (
   }),
   option: (base, state) => ({
     ...base,
-    // backgroundColor: state.isSelected
-    //   ? "var(--background)"
-    //   : state.isFocused
-    //   ? "var(--background)"
-    //   : "var(--background)",
-    color: state.isSelected
-      ? "var(--color-font-main)"
+    backgroundColor: state.isSelected
+      ? "transparent"
       : state.isFocused
-        ? "var(--color-font-main)"
-        : "var(--color-font-second)",
+        ? "transparent"
+        : "transparent",
+    color: state.isSelected
+      ? isFilter
+        ? "rgba(var(--rgb-color-font-primary), 0.5)"
+        : "rgba(var(--color-primary-rgb), 0.8)"
+      : state.isFocused
+        ? "var(--color-primary)"
+        : isFilter
+          ? "var(--color-font-primary)"
+          : "rgba(var(--rgb-color-font-primary), 0.8)",
     "&:active": {
-      color: "var(--color-font-main)",
+      backgroundColor: "var(--color-primary)",
+      color: "var(--color-font-secondary)",
     },
     // "&:hover": {
     //   color: "#101828",
@@ -73,11 +84,9 @@ export const customSelectStyles = (
       : "var(--color-font-secondary)",
     ":hover": {
       opacity: 0.5,
-      // color: isFilter
-      //   ? "var(--color-font-secondary)"
-      //   : "var(--color-font-primary)",
     },
-    padding: 13,
+    paddingInline: 8,
+    marginRight: 16,
     cursor: "pointer",
     transition: "transform 0.3s ease",
     transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : "rotate(0deg)",
@@ -88,12 +97,12 @@ export const customSelectStyles = (
   }),
   clearIndicator: (base) => ({
     ...base,
-    color: isFilter
-      ? "var(--color-font-primary)"
-      : "var(--color-font-secondary)",
-    padding: 8,
+    color: "red",
+    padding: 3,
+    marginRight: -51,
     cursor: "pointer",
-    transition: "all 0.3s ease, color 0.3s ease",
-    ":hover": { color: "red", transform: "rotate(180deg)" },
+    opacity: 0.5,
+    transition: "all 0.3s ease",
+    ":hover": { opacity: 1, transform: "rotate(180deg)" },
   }),
 });

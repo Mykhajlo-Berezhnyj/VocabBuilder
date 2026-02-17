@@ -8,6 +8,7 @@ import type {
   RegisterOptions,
 } from "react-hook-form";
 import clsx from "clsx";
+import Icon from "../Icon/Icon";
 
 interface InputFieldPasswordProps<T extends FieldValues> {
   name: Path<T>;
@@ -41,7 +42,7 @@ export default function InputFieldPassword<T extends FieldValues>({
         className={clsx(
           css.input,
           error && css.inputError,
-          !error && isValid && css.inputValid
+          !error && isValid && css.inputValid,
         )}
         type={showPassword ? "text" : "password"}
         placeholder={placeholder}
@@ -57,7 +58,14 @@ export default function InputFieldPassword<T extends FieldValues>({
       />
       {error && (
         <span role="alert" className={css.error}>
+          <Icon className={css.iconError} iconName="error" />
           {error}
+        </span>
+      )}
+      {isValid && (
+        <span role="alert" className={css.valid}>
+          <Icon className={css.iconError} iconName="success" />
+          {`Success ${name}`}
         </span>
       )}
     </div>

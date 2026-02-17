@@ -52,6 +52,10 @@ form .wordWrap {
 .inputWrap input {
   border: 1px solid rgba(var(--rgb-color-font-secondery), 0.3);
   color: var(--color-font-secondary);
+
+  &:hover {
+    border-color: var(--color-font-secondary);
+  }
 }
 
 form .btnWrap {

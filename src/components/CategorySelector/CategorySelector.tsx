@@ -2,7 +2,7 @@ import SelectCategory, { type Option } from "./SelectCategory/SelectCategory";
 import VerbTypeRadio from "./VerbTypeRadio/VerbTypeRadio";
 import css from "./CategorySelector.module.css";
 import type { SingleValue } from "react-select";
-import type { Category } from "../../redux/filters/types";
+import type { CategoryNotVerb } from "../../redux/filters/types";
 import clsx from "clsx";
 
 type CategorySelectorBaseProps = {
@@ -15,12 +15,12 @@ type CategorySelectorBaseProps = {
 
 type VerbProps = {
   category: "verb";
-  isIrregular: boolean;
-  onChangeIsIrregular: (value: boolean) => void;
+  isIrregular: boolean | null;
+  onChangeIsIrregular: (value: boolean | null) => void;
 };
 
 type NonVerbProps = {
-  category: Exclude<Category, "verb"> | null;
+  category: CategoryNotVerb | null;
   isIrregular?: never;
   onChangeIsIrregular?: never;
 };

@@ -10,7 +10,7 @@ type VerbTypeRadioProps = {
   mode: "form" | "filter";
   hasError?: boolean;
   isIrregular?: boolean | null;
-  onChange?: (value: boolean) => void;
+  onChange?: (value: boolean | null) => void;
 };
 
 export default function VerbTypeRadio({
@@ -23,7 +23,7 @@ export default function VerbTypeRadio({
   const regularId = `verb-regular-${mode}`;
   const irregularId = `verb-irregular-${mode}`;
   const name = `verb-${mode}`;
- 
+
   return (
     <div className={clsx(css.radioGroup, className, hasError && css.error)}>
       <div className={css.radioWrap}>

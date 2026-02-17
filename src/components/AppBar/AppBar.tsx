@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Container from "../Container/Container";
 import Logo from "../Logo/Logo";
 import UserBar from "../UserBar/UserBar";
@@ -22,15 +22,44 @@ export default function AppBar({ className }: AppBarProps) {
   const navigate = useNavigate();
   const width = useWindowWidth();
   const isDestkop = width >= 1440;
+  const burgerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (isDestkop) {
       queueMicrotask(() => setIsOpen((prev) => (prev ? false : prev)));
+    } else {
+      function closeEscape(event: KeyboardEvent) {
+        if (event.key === "Escape") {
+          setIsOpen(false);
+        }
+      }
+      window.addEventListener("keydown", closeEscape);
+
+      function clickOutsideBurger(event: PointerEvent) {
+        if (
+          burgerRef.current &&
+          !burgerRef.current.contains(event?.target as Node)
+        ) {
+          setIsOpen(false);
+        }
+      }
+      window.addEventListener("pointerdown", clickOutsideBurger);
+      return () => {
+        window.removeEventListener("pointerdown", clickOutsideBurger);
+        window.removeEventListener("keydown", closeEscape);
+      };
     }
   }, [isDestkop]);
 
-  const handleLogout = async() => {
-   await dispatch(logout()).unwrap();
+  useEffect(() => {
+    document.body.style.overflowY = isOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflowY = "";
+    };
+  }, [isOpen]);
+
+  const handleLogout = async () => {
+    await dispatch(logout()).unwrap();
     navigate("/login");
     toast.success("User logout successes");
   };
@@ -58,7 +87,10 @@ export default function AppBar({ className }: AppBarProps) {
         />
 
         {!isDestkop && (
-          <div className={clsx(css.burgerMenu, isOpen && css.open)}>
+          <div
+            ref={burgerRef}
+            className={clsx(css.burgerMenu, isOpen && css.open)}
+          >
             <UserBar
               isOpen={isOpen}
               variant="menu"

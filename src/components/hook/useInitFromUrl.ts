@@ -11,7 +11,11 @@ import {
   setIsIrregular,
   setSearch,
 } from "../../redux/filters/slice";
-import type { Category, CategoryNotVerb, Filter } from "../../redux/filters/types";
+import type {
+  Category,
+  CategoryNotVerb,
+  Filter,
+} from "../../redux/filters/types";
 import { buildUrlFromParams } from "../utils/buildUrlFromParams";
 import { useEffect } from "react";
 import { fetchUserWords } from "../../redux/userDictionary/operations";
@@ -33,23 +37,27 @@ export function useInitFromUrl() {
       dispatch(setSearch(keyword));
 
       dispatch(setCategories(category as Category));
-      if (category === "verb" && isIrregular) {
-        dispatch(setIsIrregular(isIrregular));
+      if (category === "verb") {
+        if (isIrregular === undefined) {
+          dispatch(setIsIrregular(null));
+        } else {
+          dispatch(setIsIrregular(isIrregular));
+        }
       }
     }
-    let filters: Filter = { keyword: "", category: null, };
-    
+    let filters: Filter = { keyword: "", category: null };
+
     if (category === "verb") {
-       filters = {
+      filters = {
         keyword: keyword,
         category: "verb",
-        isIrregular: isIrregular,
+        isIrregular: isIrregular === undefined ? null : isIrregular,
       };
-    } else if (category as Category !== "verb") {
-         filters = {
-            keyword: keyword,
-            category: category as CategoryNotVerb,
-        }
+    } else if ((category as Category) !== "verb") {
+      filters = {
+        keyword: keyword,
+        category: category as CategoryNotVerb,
+      };
     }
 
     if (pathname.includes("/dictionary")) {

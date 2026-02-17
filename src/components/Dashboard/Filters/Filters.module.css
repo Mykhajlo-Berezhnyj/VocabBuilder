@@ -12,11 +12,16 @@
   height: 48px;
   border-radius: var(--border-radius);
   border: 1px solid rgba(var(--rgb-color-font-primary), 0.1);
-  padding: 12px 24px;
+  padding: 12px 46px 12px 24px;
   font-size: var(--fs-base);
   line-height: 24px;
   font-weight: var(--fw-medium);
   background-color: transparent;
+
+  &:hover,
+  &:focus-within {
+    border-color: var(--color-primary);
+  }
 }
 
 .input::placeholder {
@@ -57,4 +62,28 @@
   @media (min-width: 768px) {
     font-size: var(--fs-small);
   }
+}
+
+.btnDelete {
+  position: absolute;
+  top: 12px;
+  right: 24px;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+}
+
+.iconX {
+  opacity: 0.7;
+  width: 16px;
+  height: 16px;
+  stroke: red;
+  transition: all 0.3s ease;
+  transform: rotate(0);
+}
+
+.btnDelete:hover .iconX {
+  transform: rotate(180deg);
+  opacity: 1;
+  transition: all 0.3s ease;
 }

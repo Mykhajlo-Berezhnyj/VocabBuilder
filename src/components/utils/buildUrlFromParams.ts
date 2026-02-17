@@ -24,9 +24,13 @@ export function buildUrlFromParams(params: URLSearchParams) {
       ? (categoryFromParams as Category)
       : null;
 
-  const isIrregular = params.has("isIrregular")
-    ? params.get("isIrregular") === "true"
-    : null;
+  let isIrregular;
+  if (params.has("isIrregular")) {
+    const isIrregularUrl = params.get("isIrregular");
+    isIrregular =
+      isIrregularUrl === null ? null : isIrregularUrl === "true" ? true : false;
+      console.log("🚀 ~ buildUrlFromParams ~ isIrregular:", isIrregular)
+  }
 
   return { page, limit, keyword, category, isIrregular };
 }

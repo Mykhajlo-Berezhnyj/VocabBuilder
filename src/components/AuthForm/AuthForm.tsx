@@ -40,7 +40,7 @@ export default function AuthForm({ className, isRegisterPage }: AuthFormProps) {
     register,
     handleSubmit,
     reset,
-    formState: { isSubmitting, errors, touchedFields, isValid },
+    formState: { isSubmitting, errors, isValid, dirtyFields },
   } = useForm<FormData>({
     resolver: yupResolver(schema),
     defaultValues: { email: existingEmail ? existingEmail : "" },
@@ -114,11 +114,8 @@ export default function AuthForm({ className, isRegisterPage }: AuthFormProps) {
             register={register}
             error={(errors as FieldErrors<RegistrationData>).name?.message}
             isValid={
-              (
-                touchedFields as Partial<
-                  Record<keyof RegistrationData, boolean>
-                >
-              ).name && !(errors as FieldErrors<RegistrationData>).name
+              (dirtyFields as Partial<Record<keyof RegistrationData, boolean>>)
+                .name && !(errors as FieldErrors<RegistrationData>).name
             }
             className={css.inputWrap}
           />
@@ -129,7 +126,7 @@ export default function AuthForm({ className, isRegisterPage }: AuthFormProps) {
           placeholder="Email"
           register={register}
           error={errors.email?.message as string | undefined}
-          isValid={touchedFields.email && !errors.email}
+          isValid={dirtyFields.email && !errors.email}
           className={css.inputWrap}
         />
 
@@ -138,7 +135,7 @@ export default function AuthForm({ className, isRegisterPage }: AuthFormProps) {
           placeholder="Password"
           register={register}
           error={errors.password?.message as string | undefined}
-          isValid={touchedFields.password && !errors.password}
+          isValid={dirtyFields.password && !errors.password}
           className={css.inputWrap}
         />
       </div>

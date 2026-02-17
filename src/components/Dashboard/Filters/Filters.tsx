@@ -10,6 +10,7 @@ import Icon from "../../Icon/Icon";
 import CategorySelector from "../../CategorySelector/CategorySelector";
 import type { Option } from "../../CategorySelector/SelectCategory/SelectCategory";
 import { useSearchParams } from "react-router-dom";
+import Button from "../../Button/Button";
 
 type FiltersProps = {
   className: string;
@@ -20,7 +21,7 @@ export default function Filters({ className }: FiltersProps) {
   const options = useSelector(selectOptions);
   const { category, isIrregular } = useSelector(selectSelectedFilters);
   const [searchParams, setSearchParams] = useSearchParams();
- 
+
   const debouncedKeyword = useDebouncedValue(inputVale, 300);
   const satinizedKeyword = debouncedKeyword.trim();
 
@@ -54,10 +55,10 @@ export default function Filters({ className }: FiltersProps) {
     });
   };
 
-  const handleChangeIsIrregular = (val: boolean) => {
+  const handleChangeIsIrregular = (val: boolean | null) => {
     setSearchParams((prev) => {
       const newParams = new URLSearchParams(prev);
-      if (val) {
+      if (val === true || val === false) {
         newParams.set("isIrregular", String(val));
       } else {
         newParams.delete("isIrregular");
@@ -100,7 +101,17 @@ export default function Filters({ className }: FiltersProps) {
           placeholder="Find the word"
           onChange={(e) => setInputValue(e.target.value)}
         />
-        <Icon iconName="search" className={css.iconSearch} />
+        {!inputVale && <Icon iconName="search" className={css.iconSearch} />}
+        {inputVale && (
+          <Button
+            className={css.btnDelete}
+            aria-label="Clear search"
+            title="Clear search"
+            onClick={() => setInputValue("")}
+          >
+            <Icon className={css.iconX} iconName={"x"} />
+          </Button>
+        )}
       </div>
       <CategorySelector {...selectorProps} />
     </form>
